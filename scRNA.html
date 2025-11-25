@@ -1,0 +1,1578 @@
+<!DOCTYPE html><html><head>
+      <title>scRNA</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:///c:\Users\Jerry\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.8.20\crossnote\dependencies\katex\katex.min.css">
+      
+      
+      
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export">
+    
+    
+      <div class="crossnote markdown-preview  ">
+      
+<h1 id="cdesk-2-scrna-pipeline">CDesk: 2. scRNA pipeline </h1>
+<p>Our CDesk scRNA module comprises of 8 function submodules. Here we present you the CDesk scRNA working pipeline and how to use it to analyze your scRNA data.<br>
+
+</p><div class="md-toc">
+<div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#21-scrna-preprocess" class="md-toc-link">
+            <p>2.1 scRNA: Preprocess</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#22-scrna-cluster" class="md-toc-link">
+            <p>2.2 scRNA: cluster</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#23-scrna-annotation" class="md-toc-link">
+            <p>2.3 scRNA: annotation</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#24-scrna-marker" class="md-toc-link">
+            <p>2.4 scRNA: marker</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#25-scrna-trajectory" class="md-toc-link">
+            <p>2.5 scRNA: trajectory</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#26-scrna-similarity" class="md-toc-link">
+            <p>2.6 scRNA: similarity</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#27-scrna-interaction" class="md-toc-link">
+            <p>2.7 scRNA: interaction</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#28-scrna-integrate" class="md-toc-link">
+            <p>2.8 scRNA: integrate</p>
+
+          </a></div>
+</div>
+<h2 id="21-scrna-preprocess">2.1 scRNA: Preprocess </h2>
+<p>CDesk preprocess module integrates preprocessing tools for single-cell RNA-seq data and supports four distinct analysis workflows: cellranger, drseq, singleron, and dnbc. Below is a brief overview of each:</p>
+<ol>
+<li>cellranger: The official 10x Genomics pipeline for single-cell RNA-seq analysis. This workflow checks the input CSV file for sample names and FASTQ file paths, creates symbolic links to the cellranger/input directory, and then runs cellranger count for each sample using the specified reference genome.</li>
+<li>drseq: Use the quality control and analysis software DrSeq for Drop-seq data. It takes two sequencing files as input: data_1.fastq (containing barcode information) and data_2.fastq (containing read sequences).</li>
+<li>singleron: Based on Singleron’s Celescope pipeline. This workflow links FASTQ files to the singleron/data directory, generates a sample mapping file (mapfile), and runs multi-sample analysis using the multi_rna command, followed by execution of the generated shell script.</li>
+<li>dnbc: A single-cell RNA-seq analysis pipeline developed by MGI for the DNBelab C4 platform, powered by dnbc4tools. It requires cDNA and oligo FASTQ files as input and performs data processing using the dnbc4tools rna run command with a user-specified genome index.</li>
+<li>smartseq: The preprocess pipeline is the same as bulkRNA preproces.</li>
+</ol>
+<p>1. cellranger</p>
+<p>Here is an example about how to use the CDesk preprocess cellranger module.</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>CDesk scRNA preprocess cellranger <span class="token punctuation">\</span>
+<span class="token parameter variable">-i</span> /<span class="token punctuation">..</span>./input.csv <span class="token punctuation">\</span>
+<span class="token parameter variable">-s</span> mm10 <span class="token parameter variable">-o</span> /<span class="token punctuation">..</span>./output_directory
+</code></pre><table>
+<thead>
+<tr>
+<th>Parameters<sup>(*necessary)</sup></th>
+<th>Description</th>
+<th>Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-i,--input*</td>
+<td>The input fq information file</td>
+<td></td>
+</tr>
+<tr>
+<td>-o,--output*</td>
+<td>The output directory</td>
+<td></td>
+</tr>
+<tr>
+<td>-s,--species*</td>
+<td>Specify the species</td>
+<td></td>
+</tr>
+<tr>
+<td>-t,--thread</td>
+<td>Number of threads</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<p>If the pipeline runs successfully, there would be a cellranger running output in the output directory.</p>
+<details>
+<summary>
+What should the input file look like?</summary>
+<pre><blockcode>
+=== cellranger.csv ===
+sample,fq1,fq2
+pbmc,/mnt/linzejie/CDesk_test/data/2.scRNA/1.preprocess/10x/pbmc_1.fastq.gz,/mnt/linzejie/CDesk_test/data/2.scRNA/1.preprocess/10x/pbmc_2.fastq.gz
+</blockcode>
+- sample: The sample name to assign as prefix
+- fq1: The fastq read1 compressed file
+- fq2: The fastq read2 compressed file
+</pre>
+</details><br>
+<p>2. singleron</p>
+<p>Here is an example about how to use the CDesk preprocess singleron module.</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>CDesk scRNA preprocess singleron <span class="token punctuation">\</span>
+<span class="token parameter variable">-i</span> /<span class="token punctuation">..</span>./input.csv <span class="token punctuation">\</span>
+<span class="token parameter variable">-s</span> mm10 <span class="token parameter variable">-o</span> /<span class="token punctuation">..</span>./output_directory
+</code></pre><table>
+<thead>
+<tr>
+<th>Parameters<sup>(*necessary)</sup></th>
+<th>Description</th>
+<th>Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-i,--input*</td>
+<td>The input fq information file</td>
+<td></td>
+</tr>
+<tr>
+<td>-o,--output*</td>
+<td>The output directory</td>
+<td></td>
+</tr>
+<tr>
+<td>-s,--species*</td>
+<td>Specify the species</td>
+<td></td>
+</tr>
+<tr>
+<td>-t,--thread</td>
+<td>Number of threads</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<p>If the pipeline runs successfully, there would be a celescope running output in the output directory.</p>
+<details>
+<summary>
+What should the input file look like?</summary>
+<pre><blockcode>
+=== celescope.csv ===
+sample,fq1,fq2
+D0,/mnt3/linzejie/CDesk_test/data/2.scRNA/singleron/D0_1.fq.gz,/mnt3/linzejie/CDesk_test/data/2.scRNA/singleron/D0_2.fq.gz
+D4,/mnt3/linzejie/CDesk_test/data/2.scRNA/singleron/D4_1.fq.gz,/mnt3/linzejie/CDesk_test/data/2.scRNA/singleron/D4_2.fq.gz
+</blockcode>
+- sample: The sample name to assign as prefix
+- fq1: The fastq read1 compressed file
+- fq2: The fastq read2 compressed file
+</pre>
+</details><br>
+<p>3. dnbc</p>
+<p>Here is an example about how to use the CDesk preprocess dnbc module.</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>CDesk scRNA preprocess dnbc <span class="token punctuation">\</span>
+<span class="token parameter variable">-i</span> /<span class="token punctuation">..</span>./input.csv <span class="token punctuation">\</span>
+<span class="token parameter variable">-s</span> mm10 <span class="token parameter variable">-o</span> /<span class="token punctuation">..</span>./output_directory
+</code></pre><table>
+<thead>
+<tr>
+<th>Parameters<sup>(*necessary)</sup></th>
+<th>Description</th>
+<th>Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-i,--input*</td>
+<td>The input fq information file</td>
+<td></td>
+</tr>
+<tr>
+<td>-o,--output*</td>
+<td>The output directory</td>
+<td></td>
+</tr>
+<tr>
+<td>-s,--species*</td>
+<td>Specify the species</td>
+<td></td>
+</tr>
+<tr>
+<td>-t,--thread</td>
+<td>Number of threads</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<p>If the pipeline runs successfully, there would be a dnbc4tools running output in the output directory.</p>
+<details>
+<summary>
+What should the input file look like?</summary>
+<pre><blockcode>
+=== dnbc.csv ===
+sample,cDNAfq1,cDNAfq2,oligofq1,oligofq2
+PHCAR_Day4,/mnt3/linzejie/CDesk_test/data/2.scRNA/dnbc/huada/PHCAR_Day4_R1_001.fastq.gz,/mnt3/linzejie/CDesk_test/data/2.scRNA/dnbc/huada/PHCAR_Day4_R2_001.fastq.gz,/mnt3/linzejie/CDesk_test/data/2.scRNA/dnbc/huada/PHCAR_Day4-oligo_R1_001.fastq.gz,/mnt3/linzejie/CDesk_test/data/2.scRNA/dnbc/huada/PHCAR_Day4-oligo_R2_001.fastq.gz
+PHCAR_Day8,/mnt3/linzejie/CDesk_test/data/2.scRNA/dnbc/huada/PHCAR_Day8_R1_001.fastq.gz,/mnt3/linzejie/CDesk_test/data/2.scRNA/dnbc/huada/PHCAR_Day8_R2_001.fastq.gz,/mnt3/linzejie/CDesk_test/data/2.scRNA/dnbc/huada/PHCAR_Day8-oligo_R1_001.fastq.gz,/mnt3/linzejie/CDesk_test/data/2.scRNA/dnbc/huada/PHCAR_Day8-oligo_R2_001.fastq.
+</blockcode>
+- sample: The sample name to assign as prefix
+- cDNAfq1: The cDNA fastq read1 compressed file
+- cDNAfq2: The cDNA fastq read2 compressed file
+- oligofq1: The oligo fastq read1 compressed file
+- oligofq2: The oligo fastq read2 compressed file
+</pre>
+</details><br>
+<p>4. drseq</p>
+<p>Here is an example about how to use the CDesk preprocess drseq module.</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>CDesk scRNA preprocess drseq <span class="token punctuation">\</span>
+<span class="token parameter variable">-i</span> /<span class="token punctuation">..</span>./input.csv <span class="token punctuation">\</span>
+<span class="token parameter variable">-s</span> mm10 <span class="token parameter variable">-o</span> /<span class="token punctuation">..</span>./output_directory
+</code></pre><table>
+<thead>
+<tr>
+<th>Parameters<sup>(*necessary)</sup></th>
+<th>Description</th>
+<th>Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-i,--input*</td>
+<td>The input fq information file</td>
+<td></td>
+</tr>
+<tr>
+<td>-o,--output*</td>
+<td>The output directory</td>
+<td></td>
+</tr>
+<tr>
+<td>-s,--species*</td>
+<td>Specify the species</td>
+<td></td>
+</tr>
+<tr>
+<td>-t,--thread</td>
+<td>Number of threads</td>
+<td>8</td>
+</tr>
+<tr>
+<td>--barcode</td>
+<td>The barcode range</td>
+<td>1:12</td>
+</tr>
+<tr>
+<td>--umi</td>
+<td>The barcode range</td>
+<td>13:20</td>
+</tr>
+</tbody>
+</table>
+<p>If the pipeline runs successfully, there would be a DrSeq running output in the output directory.</p>
+<details>
+<summary>
+What should the input file look like?</summary>
+<pre><blockcode>
+=== DrSeq.csv ===
+sample,fq1,fq2
+pbmc,/mnt/linzejie/CDesk_test/data/2.scRNA/1.preprocess/10x/pbmctest_1.fastq,/mnt/linzejie/CDesk_test/data/2.scRNA/1.preprocess/10x/pbmctest_2.fastq
+</blockcode>
+- sample: The sample name to assign as prefix
+- fq1: The fastq read1 compressed file
+- fq2: The fastq read2 compressed file
+</pre>
+</details><br>
+<p>5. smartseq</p>
+<p>The same as CDesk bulk preprocess.</p>
+<h2 id="22-scrna-cluster">2.2 scRNA: cluster </h2>
+<p>CDesk scRNA cluster module automates scRNA-seq clustering analysis by providing two analytical modes: Seurat (R) and Scanpy (Python). The workflow includes standard scRNA-seq analysis steps—data loading, quality control (filtering of genes and cells, mitochondrial gene content assessment), normalization, feature selection, dimensionality reduction (PCA, UMAP, t-SNE), and clustering. It supports multiple input formats, including H5, H5AD, RDS, and 10x Genomics data, and generates comprehensive PDF reports containing clustering results and visualizations.</p>
+<p>Here is an example about how to use the CDesk scRNA clustering module.</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>CDesk scRNA cluster <span class="token punctuation">\</span>
+<span class="token parameter variable">-i</span> /<span class="token punctuation">..</span>./input <span class="token punctuation">\</span>
+<span class="token parameter variable">-o</span> /<span class="token punctuation">..</span>./output_directory <span class="token punctuation">\</span>
+<span class="token parameter variable">-n</span> <span class="token builtin class-name">test</span> <span class="token parameter variable">--mode</span> seurat<span class="token punctuation">(</span>scanpy<span class="token punctuation">)</span>
+</code></pre><table>
+<thead>
+<tr>
+<th>Parameters<sup>(*necessary)</sup></th>
+<th>Description</th>
+<th>Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-i,--input*</td>
+<td>The input scRNA data (.h5,.txt/csv/tsv.gz,10x input directory,.rds for seurat mode,.h5ad for scanpy mode)</td>
+<td></td>
+</tr>
+<tr>
+<td>-o,--output*</td>
+<td>The output directory</td>
+<td></td>
+</tr>
+<tr>
+<td>-n,--name*</td>
+<td>The output prefix name</td>
+<td></td>
+</tr>
+<tr>
+<td>--mode*</td>
+<td>Analysis mode</td>
+<td>{seurat,scanpy}</td>
+</tr>
+<tr>
+<td>--min_cells</td>
+<td>minimum cells threshold for data filtration preprocess</td>
+<td>3</td>
+</tr>
+<tr>
+<td>--min_features</td>
+<td>minimum features threshold data filtration preprocess</td>
+<td>200</td>
+</tr>
+<tr>
+<td>--nFeature_RNA_min</td>
+<td>clustering feature minimum</td>
+<td>200</td>
+</tr>
+<tr>
+<td>--nFeature_RNA_max</td>
+<td>clustering feature maximum</td>
+<td>2500</td>
+</tr>
+<tr>
+<td>--mt_percent</td>
+<td>clustering mitochondria percent threshold</td>
+<td>5</td>
+</tr>
+<tr>
+<td>--variable_features</td>
+<td>clustering variable features</td>
+<td>2000</td>
+</tr>
+<tr>
+<td>--dim_prefer</td>
+<td>clustering dimesions</td>
+<td>30</td>
+</tr>
+<tr>
+<td>--res</td>
+<td>clustering resolution</td>
+<td>1</td>
+</tr>
+<tr>
+<td>--width</td>
+<td>Plot width</td>
+<td>10</td>
+</tr>
+<tr>
+<td>--height</td>
+<td>Plot height</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<p>If the pipeline runs successfully, there would be clustering plots and h5ad output file in the output directory for scanpy mode. There would be elbow plots, cluste clustering plots, cluster tree plots and rds output file in the output directory for seurat mode.</p>
+<div align="center">
+<img src="./images/scRNA_cluster_scanpy1.png" width="330"><img src="./images/scRNA_cluster_scanpy2.png" width="330">
+</div>
+<center><i>CDesk scRNA scanpy cluster example result</i></center>
+<div align="center">
+<img src="./images/scRNA_cluster_seurat1.png" width="330"><img src="./images/scRNA_cluster_seurat2.png" width="330">
+<img src="./images/scRNA_cluster_seurat3.png" width="330"><img src="./images/scRNA_cluster_seurat4.png" width="330">
+</div>
+<center><i>CDesk scRNA seurat cluster example result</i></center>
+<p></p>
+
+<h2 id="23-scrna-annotation">2.3 scRNA: annotation </h2>
+<p>CDesk scRNA annotation module realizes the automation of annotation of single-cell data. It offers two annotation strategies: marker gene-based annotation (marker mode) and reference-guided label transfer (transfer mode). In marker mode, cell types are assigned by comparing the expression levels and detection rates of known marker genes across clusters. In transfer mode, cell type labels from a reference dataset are transferred to the query dataset using Seurat’s integration framework. Both methods produce annotated cell type labels and automatically generate visualizations of the annotations projected onto low-dimensional embeddings.</p>
+<p>1. marker mode</p>
+<p>Cell type annotation is performed using user-provided marker genes that are specifically associated with defined cell types. Three key thresholds are applied to determine cell type identity:</p>
+<ol>
+<li>The marker gene must have an average expression level in the cluster exceeding the threshold expression_thre (log1p normalized expression).</li>
+<li>The gene must be expressed in a proportion of cells within the cluster greater than percentage_thre.</li>
+<li>For a candidate cell type to be considered, a minimum fraction (marker_percentage) of its marker genes must simultaneously meet both of the above criteria.</li>
+</ol>
+<p>Finally, the average proportion score is calculated for each qualifying cell type, and the cell type with the highest score is assigned as the final annotation for each cluster.</p>
+<p>Here is an example about how to use the CDesk scRNA annotation marker module.</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>CDesk scRNA annotation marker <span class="token punctuation">\</span>
+<span class="token parameter variable">-i</span> /<span class="token punctuation">..</span>./input.rds <span class="token punctuation">\</span>
+<span class="token parameter variable">--marker</span> /<span class="token punctuation">..</span>./marker.csv <span class="token punctuation">\</span>
+<span class="token parameter variable">--meta</span> meta <span class="token punctuation">\</span>
+<span class="token parameter variable">-o</span> /<span class="token punctuation">..</span>./output_directory
+</code></pre><table>
+<thead>
+<tr>
+<th>Parameters<sup>(*necessary)</sup></th>
+<th>Description</th>
+<th>Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-i,--input*</td>
+<td>The input .rds file to annotate</td>
+<td></td>
+</tr>
+<tr>
+<td>-o,--output*</td>
+<td>The output directory</td>
+<td></td>
+</tr>
+<tr>
+<td>--marker*</td>
+<td>The marker file with cell marker information</td>
+<td></td>
+</tr>
+<tr>
+<td>--meta*</td>
+<td>The meta colname of reference data used</td>
+<td></td>
+</tr>
+<tr>
+<td>--cluster</td>
+<td>Plot clustering</td>
+<td>umap</td>
+</tr>
+<tr>
+<td>--expression_thre</td>
+<td>The average expression threshold</td>
+<td>1.5</td>
+</tr>
+<tr>
+<td>--percentage_thre</td>
+<td>The express &gt; 0 percentage threshold</td>
+<td>0.7</td>
+</tr>
+<tr>
+<td>--marker_thre</td>
+<td>The proportion threshold for passing the screening</td>
+<td>0.7</td>
+</tr>
+<tr>
+<td>--width</td>
+<td>Plot width</td>
+<td>10</td>
+</tr>
+<tr>
+<td>--height</td>
+<td>Plot height</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<p>If the pipeline runs successfully, there would be a cell annotation file and a plot of the annotations projected onto low-dimensional embeddings.</p>
+<details>
+<summary>
+What should the input file look like?</summary>
+<pre><blockcode>
+=== marker.csv ===
+Celltype,Marker
+C2,Zscan4a
+C2,Zscan4b
+C2,Eif1a
+C2,Dux
+C4,Obox4
+C4,Khdc1b
+C4,Usp17l1
+C4,Zfp352
+C8,Cdx2
+C8,Pou5f1
+C8,Nanog
+C8,Eomes
+C8,Tead4
+TE,Cdx2
+TE,Eomes
+TE,Gata3
+TE,Krt8
+TE,Krt18
+TE,Elf5
+PrE,Gata6
+PrE,Gata4
+PrE,Sox17
+PrE,Pdgfra
+PrE,Dab2
+PrE,Lrp2
+</blockcode>
+- Celltype: The celltypes to specify
+- Marker: The corresponding markers
+</pre>
+</details>
+<br>
+<p>2. transfer mode</p>
+<p>It enables reference-based cell type label transfer. It first loads the reference and query datasets, identifies shared genes, and performs independent preprocessing—including normalization, variable feature selection, scaling, and PCA. Anchors between datasets are then identified using Seurat’s FindTransferAnchors in PCA space, followed by label transfer via TransferData. Cell type annotations from the reference (specified by ref_meta) are predicted and added to the query dataset’s metadata.</p>
+<p>Here is an example about how to use the CDesk scRNA  annotation transfer module.</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>CDesk scRNA annotation transfer <span class="token punctuation">\</span>
+<span class="token parameter variable">--query</span> /<span class="token punctuation">..</span>./qry.rds <span class="token punctuation">\</span>
+<span class="token parameter variable">--ref</span> /<span class="token punctuation">..</span>./ref.rds <span class="token punctuation">\</span>
+<span class="token parameter variable">--meta</span> meta <span class="token punctuation">\</span>
+<span class="token parameter variable">-o</span> /<span class="token punctuation">..</span>./output_directory
+</code></pre><table>
+<thead>
+<tr>
+<th>Parameters<sup>(*necessary)</sup></th>
+<th>Description</th>
+<th>Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>--query*</td>
+<td>The query .rds data to annotate</td>
+<td></td>
+</tr>
+<tr>
+<td>--ref*</td>
+<td>The reference .rds data</td>
+<td></td>
+</tr>
+<tr>
+<td>-o,--output*</td>
+<td>The output directory</td>
+<td></td>
+</tr>
+<tr>
+<td>--meta*</td>
+<td>The meta colname of reference data used</td>
+<td></td>
+</tr>
+<tr>
+<td>--cluster</td>
+<td>Plot type</td>
+<td>umap</td>
+</tr>
+<tr>
+<td>--nfeatures</td>
+<td>The number of variable features</td>
+<td>5000</td>
+</tr>
+<tr>
+<td>--dims</td>
+<td>The number of PC dimensions used</td>
+<td>30</td>
+</tr>
+<tr>
+<td>--width</td>
+<td>Plot width</td>
+<td>10</td>
+</tr>
+<tr>
+<td>--height</td>
+<td>Plot height</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<p>If the pipeline runs successfully, there would be a cell annotation file and a plot of the annotations projected onto low-dimensional embeddings.</p>
+<div align="center">
+<img src="./images/scRNA_annotation_marker.png" height="300"><img src="./images/scRNA_annotation_transfer.png" height="300">
+</div>
+<center><i>CDesk scRNA annotation example result (left: marker, right: transfer)</i></center>
+<h2 id="24-scrna-marker">2.4 scRNA: marker </h2>
+<p>CDesk marker module supports two modes of differential expression analysis for single-cell RNA-seq data:</p>
+<ol>
+<li>All-clusters mode (all): Uses FindAllMarkers to automatically identify differentially expressed genes (DEGs) for each cluster compared to all others, and generates a heatmap visualizing the top 10 marker genes per cluster.</li>
+<li>Two-group mode (2group): Uses FindMarkers to perform pairwise comparison between two user-specified cell types or clusters, identifying their specific DEGs.</li>
+</ol>
+<p>Both modes allow customization of key parameters, including log-fold change threshold, adjusted p-value cutoff, and minimum expression percentage. Significantly differentially expressed genes are exported to CSV files for downstream analysis.</p>
+<p>1. all</p>
+<p>Here is an example about how to use the CDesk scRNA marker all module.</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>CDesk scRNA marker all <span class="token punctuation">\</span>
+<span class="token parameter variable">-i</span> /<span class="token punctuation">..</span>./input.rds <span class="token parameter variable">-o</span> /<span class="token punctuation">..</span>./output_directory <span class="token punctuation">\</span>
+<span class="token parameter variable">--meta</span> meta <span class="token parameter variable">-m</span> <span class="token number">0.25</span> <span class="token parameter variable">-p</span> <span class="token number">0.05</span> <span class="token parameter variable">-f</span> <span class="token number">0.5</span>
+</code></pre><table>
+<thead>
+<tr>
+<th>Parameters<sup>(*necessary)</sup></th>
+<th>Description</th>
+<th>Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-i,--input*</td>
+<td>The input Seurat object rds file</td>
+<td></td>
+</tr>
+<tr>
+<td>-o,--output*</td>
+<td>The output directory</td>
+<td></td>
+</tr>
+<tr>
+<td>--meta*</td>
+<td>The meta colname of reference data used</td>
+<td></td>
+</tr>
+<tr>
+<td>-fc</td>
+<td>Log Fold Change threshold</td>
+<td>0.5</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>Adjusted p-value threshold</td>
+<td>0.05</td>
+</tr>
+<tr>
+<td>-m</td>
+<td>Minimum percentage of expressed cells</td>
+<td>0.25</td>
+</tr>
+<tr>
+<td>--width</td>
+<td>Plot width</td>
+<td>16</td>
+</tr>
+<tr>
+<td>--height</td>
+<td>Plot height</td>
+<td>14</td>
+</tr>
+</tbody>
+</table>
+<p>If the pipeline runs successfully, there would be a cell type marker file and a heatmap plot showing the top differential marker expression in all cell types.</p>
+<p>2. 2 group</p>
+<p>Here is an example about how to use the CDesk scRNA marker 2group module.</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>CDesk scRNA marker 2group <span class="token punctuation">\</span>
+<span class="token parameter variable">-i</span> /<span class="token punctuation">..</span>./input.rds <span class="token parameter variable">-o</span> /<span class="token punctuation">..</span>./output_directory <span class="token punctuation">\</span>
+<span class="token parameter variable">--meta</span> meta <span class="token parameter variable">--type1</span> type1 <span class="token parameter variable">--type2</span> type2 <span class="token punctuation">\</span>
+<span class="token parameter variable">-f</span> <span class="token number">0.5</span> <span class="token parameter variable">-p</span> <span class="token number">0.05</span> <span class="token parameter variable">-m</span> <span class="token number">0.25</span>
+</code></pre><table>
+<thead>
+<tr>
+<th>Parameters<sup>(*necessary)</sup></th>
+<th>Description</th>
+<th>Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-i,--input*</td>
+<td>The input Seurat object rds file</td>
+<td></td>
+</tr>
+<tr>
+<td>-o,--output*</td>
+<td>The output directory</td>
+<td></td>
+</tr>
+<tr>
+<td>-m,--meta*</td>
+<td>The meta colname of reference data used</td>
+<td></td>
+</tr>
+<tr>
+<td>--type1*</td>
+<td>Specify the first cell type</td>
+<td></td>
+</tr>
+<tr>
+<td>--type2*</td>
+<td>Specify the second cell type</td>
+<td></td>
+</tr>
+<tr>
+<td>-fc</td>
+<td>Log Fold Change threshold</td>
+<td>0.5</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>Adjusted p-value threshold</td>
+<td>0.05</td>
+</tr>
+<tr>
+<td>-m</td>
+<td>Minimum percentage of expressed cells</td>
+<td>0.25</td>
+</tr>
+<tr>
+<td>--width</td>
+<td>Plot width</td>
+<td>16</td>
+</tr>
+<tr>
+<td>--height</td>
+<td>Plot height</td>
+<td>14</td>
+</tr>
+</tbody>
+</table>
+<p>If the pipeline runs successfully, there would be a cell type marker file and a heatmap plot showing the marker expression in two cell types.</p>
+<div align="center">
+<img src="./images/scRNA_marker_all.png" height="300"><img src="./images/scRNA_marker_2.png" height="300">
+</div>
+<center><i>CDesk scRNA marker example result (left: all, right: 2 group)</i></center>
+<h2 id="25-scrna-trajectory">2.5 scRNA: trajectory </h2>
+<p>CDesk trajectory module supports four single-cell transcriptomic analysis functions for trajectory inference and RNA velocity:</p>
+<ol>
+<li>cstreet: Performs cell trajectory inference using the CStreet tool.</li>
+<li>diffusion: Constructs developmental trajectories via diffusion map embedding and computes pseudotime.</li>
+<li>monocle: Implements advanced trajectory inference with Monocle3, enabling differential gene analysis and co-expression module detection.</li>
+<li>velocity: Conducts RNA velocity analysis to predict cell fate transitions by integrating spliced and unspliced mRNA dynamics, revealing the directionality of cellular state changes.</li>
+</ol>
+<p>All modules support parameterized input and generate visual outputs, providing a comprehensive suite for transitioning from static clustering to dynamic developmental analysis of single-cell data.</p>
+<p>1. cstreet</p>
+<p>Here is an example about how to use the CDesk scRNA trajectory cstreet module.</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>CDesk scRNA trajectory cstreet <span class="token punctuation">\</span>
+<span class="token parameter variable">--expression</span> /<span class="token punctuation">..</span>./ExpressionMatrix_list.txt <span class="token punctuation">\</span>
+<span class="token parameter variable">--state</span> /<span class="token punctuation">..</span>./CellStates_list.txt <span class="token punctuation">\</span>
+<span class="token parameter variable">-n</span> <span class="token builtin class-name">test</span> <span class="token parameter variable">-o</span> /<span class="token punctuation">..</span>./output_directory
+</code></pre><table>
+<thead>
+<tr>
+<th>Parameters<sup>(*necessary)</sup></th>
+<th>Description</th>
+<th>Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>--expression*</td>
+<td>Input expression matrixes list file</td>
+<td></td>
+</tr>
+<tr>
+<td>--state*</td>
+<td>Input cell state list file</td>
+<td></td>
+</tr>
+<tr>
+<td>-o,--output*</td>
+<td>The output directory</td>
+<td></td>
+</tr>
+<tr>
+<td>-n,--name*</td>
+<td>The meta colname of reference data used</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>If the pipeline runs successfully, there would be CStreet result in the output directory.</p>
+<div align="center">
+<img src="./images/scRNA_trajectory_cstreet.png" height="400"></div>
+<center><i>CDesk scRNA trajectory cstreet example result</i></center>
+<p>2. diffusion</p>
+<p>Here is an example about how to use the CDesk scRNA trajectory diffusion module.</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>CDesk scRNA trajectory diffusion <span class="token punctuation">\</span>
+<span class="token parameter variable">-i</span> /<span class="token punctuation">..</span>./input.rds <span class="token punctuation">\</span>
+<span class="token parameter variable">-o</span> /<span class="token punctuation">..</span>./output_directory <span class="token punctuation">\</span>
+<span class="token parameter variable">-m</span> meta <span class="token parameter variable">--start</span> celltype
+</code></pre><table>
+<thead>
+<tr>
+<th>Parameters<sup>(*necessary)</sup></th>
+<th>Description</th>
+<th>Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-i,--input*</td>
+<td>Input seurat rds file</td>
+<td></td>
+</tr>
+<tr>
+<td>--start*</td>
+<td>Cell type start point for trajectory analysis</td>
+<td></td>
+</tr>
+<tr>
+<td>-o,--output*</td>
+<td>The output directory</td>
+<td></td>
+</tr>
+<tr>
+<td>-m,--meta*</td>
+<td>Meta column for trajectory analysis</td>
+<td></td>
+</tr>
+<tr>
+<td>--width</td>
+<td>Plot width</td>
+<td>8</td>
+</tr>
+<tr>
+<td>--height</td>
+<td>Plot height</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<p>If the pipeline runs successfully, it would generate a PDF file containing all diffusion map embeddings and rds object with diffusion map.</p>
+<div align="center">
+<img src="./images/scRNA_trajectory_density1.png" height="300"><img src="./images/scRNA_trajectory_density2.png" height="300"></div>
+<div align="center">
+<img src="./images/scRNA_trajectory_density3.png" height="300"><img src="./images/scRNA_trajectory_density4.png" height="300"></div>
+<center><i>CDesk scRNA trajectory diffusion example result</i></center>
+<p>3. monocle</p>
+<p>Here is an example about how to use the CDesk scRNA trajectory monocle module.</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>CDesk scRNA trajectory monocle <span class="token punctuation">\</span>
+i /<span class="token punctuation">..</span>./input.rds <span class="token punctuation">\</span>
+<span class="token parameter variable">-m</span> meta <span class="token parameter variable">--start</span> celltype <span class="token punctuation">\</span>
+<span class="token parameter variable">-o</span> /<span class="token punctuation">..</span>./output_directory
+</code></pre><table>
+<thead>
+<tr>
+<th>Parameters<sup>(*necessary)</sup></th>
+<th>Description</th>
+<th>Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-i,--input*</td>
+<td>Input seurat rds file</td>
+<td></td>
+</tr>
+<tr>
+<td>--start*</td>
+<td>Cell type start point for trajectory analysis</td>
+<td></td>
+</tr>
+<tr>
+<td>-o,--output*</td>
+<td>The output directory</td>
+<td></td>
+</tr>
+<tr>
+<td>-m,--meta*</td>
+<td>Meta column for trajectory analysis</td>
+<td></td>
+</tr>
+<tr>
+<td>--width</td>
+<td>Plot width</td>
+<td>8</td>
+</tr>
+<tr>
+<td>--height</td>
+<td>Plot height</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<p>If the pipeline runs successfully, it generates the following outputs:</p>
+<ul>
+<li>Trajectory plot annotated with cell type labels</li>
+<li>Pseudotime trajectory visualization</li>
+<li>Expression trend plots for the top 10 differentially expressed genes</li>
+<li>Feature plots for the top 10 DEGs</li>
+<li>Co-expression module heatmap</li>
+<li>Seurat object with pseudotime annotations</li>
+<li>Gene module information</li>
+</ul>
+<div align="center">
+<img src="./images/scRNA_trajectory_monocle_pseudotime0.png" width="350"></div>
+<div align="center">
+<img src="./images/scRNA_trajectory_monocle_pseudotime1.png" width="350"><img src="./images/scRNA_trajectory_monocle_pseudotime2.png" width="350"></div>
+<center><i>CDesk scRNA trajectory monocle pseudotime trajectory visualization example result</i></center>
+<div align="center">
+<img src="./images/scRNA_trajectory_monocle_topDEGs1.png" width="350"><img src="./images/scRNA_trajectory_monocle_topDEGs2.png" width="350"></div>
+<center><i>CDesk scRNA trajectory monocle feature plots for the top 10 DEGs example result</i></center>
+<div align="center">
+<img src="./images/scRNA_trajectory_monocle_coexpression.png" width="400"></div>
+<center><i>CDesk scRNA trajectory monocle feature co-expression module heatmap example result</i></center>
+<p>4. velocity</p>
+<p>Here is an example about how to use the CDesk scRNA trajectory velocity module.</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>CDesk scRNA trajectory velocity <span class="token punctuation">\</span>
+<span class="token parameter variable">--cellranger</span> /<span class="token punctuation">..</span>./cellranger <span class="token punctuation">\</span>
+<span class="token parameter variable">--rds</span> /<span class="token punctuation">..</span>./input.rds <span class="token punctuation">\</span>
+<span class="token parameter variable">--genes</span> /<span class="token punctuation">..</span>./genes.txt <span class="token punctuation">\</span>
+<span class="token parameter variable">-o</span> /<span class="token punctuation">..</span>./output_directory <span class="token punctuation">\</span>
+<span class="token parameter variable">--meta</span> meta <span class="token parameter variable">-s</span> speices
+</code></pre><table>
+<thead>
+<tr>
+<th>Parameters<sup>(*necessary)</sup></th>
+<th>Description</th>
+<th>Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>--cellranger*</td>
+<td>Input cellranger output directory</td>
+<td></td>
+</tr>
+<tr>
+<td>-s,--species</td>
+<td>Specify the species</td>
+<td></td>
+</tr>
+<tr>
+<td>--rds*</td>
+<td>Input seurat rds file</td>
+<td></td>
+</tr>
+<tr>
+<td>-o,--output*</td>
+<td>The output directory</td>
+<td></td>
+</tr>
+<tr>
+<td>-m,--meta*</td>
+<td>Meta column for trajectory analysis</td>
+<td></td>
+</tr>
+<tr>
+<td>--genes</td>
+<td>Interested genes file</td>
+<td></td>
+</tr>
+<tr>
+<td>-t,--thread</td>
+<td>Number of threads</td>
+<td>10</td>
+</tr>
+<tr>
+<td>--width</td>
+<td>Plot width</td>
+<td>10</td>
+</tr>
+<tr>
+<td>--height</td>
+<td>Plot height</td>
+<td>10</td>
+</tr>
+</tbody>
+</table>
+<p>If the pipeline runs successfully, it would generate:</p>
+<ul>
+<li>Loom files generated by velocyto, containing spliced and unspliced count matrices</li>
+<li>Cell IDs, UMAP coordinates, and cluster annotations extracted from the Seurat object</li>
+<li>Bar plots showing the spliced vs. unspliced read ratios for each cluster</li>
+<li>Visualizations of RNA velocity results, including grid velocity and manifold (embedding) plots</li>
+<li>List of identified key genes with significant velocity signals</li>
+<li>Velocity stream plots for user-specified genes of interest (if provided)</li>
+<li>RNA velocity pseudotime plot</li>
+<li>PAGA (Partition-based Graph Abstraction) graph illustrating the developmental relationships between clusters</li>
+</ul>
+<div align="center">
+<img src="./images/scRNA_trajectory_velocity_proportion.png" height="200"></div>
+<div align="center">
+<img src="./images/scRNA_trajectory_velocity1.png" height="400"><img src="./images/scRNA_trajectory_velocity2.png" height="400"></div>
+<div align="center">
+<img src="./images/scRNA_trajectory_velocity_genes.png" height="250"></div>
+<div align="center">
+<img src="./images/scRNA_trajectory_pseudotime1.png" height="400"><img src="./images/scRNA_trajectory_pseudotime2.png" height="400"></div>
+<center><i>CDesk scRNA trajectory velocity example result</i></center>
+<h2 id="26-scrna-similarity">2.6 scRNA: similarity </h2>
+<p>CDesk similarity module assesses gene expression similarity between cell clusters from two single-cell RNA-seq datasets. It supports multiple input formats, reads in both datasets, and performs gene filtering. Using Seurat’s workflow, the module normalizes data, selects highly variable features, and integrates the datasets into a shared embedding space via anchor-based integration. For user-specified pairs of cell clusters, it computes the Pearson correlation coefficient of average gene expression profiles between each cluster pair. The results are visualized as a heatmap annotated with correlation values, enabling intuitive comparison of transcriptional similarity across datasets.</p>
+<p>Here is an example about how to use the CDesk scRNA  similarity transfer module.</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>CDesk scRNA similarity <span class="token punctuation">\</span>
+<span class="token parameter variable">--sample1</span> /<span class="token punctuation">..</span>./scRNA1 <span class="token punctuation">\</span>
+<span class="token parameter variable">--sample2</span> /<span class="token punctuation">..</span>./scRNA2 <span class="token punctuation">\</span>
+<span class="token parameter variable">--meta1</span> meta1 <span class="token parameter variable">--meta2</span> meta2 <span class="token punctuation">\</span>
+<span class="token parameter variable">--type1</span> /<span class="token punctuation">..</span>./type1.txt <span class="token punctuation">\</span>
+<span class="token parameter variable">--type2</span> /<span class="token punctuation">..</span>./type2.txt <span class="token punctuation">\</span>
+<span class="token parameter variable">-o</span> /<span class="token punctuation">..</span>./output_directory
+</code></pre><table>
+<thead>
+<tr>
+<th>Parameters<sup>(*necessary)</sup></th>
+<th>Description</th>
+<th>Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>--sample1*</td>
+<td>The first scRNA data (.h5,.txt/csv/tsv.gz,10x input directory,.rds for seurat mode,.h5ad for scanpy mode)</td>
+<td></td>
+</tr>
+<tr>
+<td>--sample2*</td>
+<td>The second scRNA data</td>
+<td></td>
+</tr>
+<tr>
+<td>--meta1*</td>
+<td>Meta column used in data 1</td>
+<td></td>
+</tr>
+<tr>
+<td>--meta2*</td>
+<td>Meta column used in data 2</td>
+<td></td>
+</tr>
+<tr>
+<td>--type1*</td>
+<td>Data 1 group file</td>
+<td></td>
+</tr>
+<tr>
+<td>--type2*</td>
+<td>Data 2 group file</td>
+<td></td>
+</tr>
+<tr>
+<td>-o,--output*</td>
+<td>The output directory</td>
+<td></td>
+</tr>
+<tr>
+<td>--nfeatures_used</td>
+<td>The number of variable features</td>
+<td>2000</td>
+</tr>
+<tr>
+<td>--integrate_features</td>
+<td>The number of features for integration</td>
+<td>2000</td>
+</tr>
+<tr>
+<td>--width</td>
+<td>Plot width</td>
+<td>10</td>
+</tr>
+<tr>
+<td>--height</td>
+<td>Plot height</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<p>If the pipeline runs successfully, there would be a correlation heatmap showing the cross-sample cell type similarity analysis in the outputdirectory.</p>
+<div align="center">
+<img src="./images/scRNA_similarity.png" height="400">
+</div>
+<center><i>CDesk scRNA similarity example result</i></center>
+<details>
+<summary>
+What should the input file look like?</summary>
+<pre><blockcode>
+=== type1.txt  ===
+a1
+a2
+a3
+a4
+=== type2.txt  ===
+b1
+b2
+b3
+b4
+</blockcode>
+</pre>
+</details>
+<h2 id="27-scrna-interaction">2.7 scRNA: interaction </h2>
+<p>CDesk interaction module provides two approaches for analyzing cellular interactions in single-cell data:</p>
+<ol>
+<li>CellChat: Performs cell-cell communication network analysis by leveraging ligand-receptor interaction databases (CellChatDB). It takes a Seurat object as input, infers signaling probabilities between cell clusters, and reconstructs intercellular communication networks. The method generates visualizations including signaling network graphs, ligand-receptor interaction counts, and signaling strength plots, enabling comprehensive analysis of intercellular crosstalk.<br>
+<br></li>
+<li>PySCENIC: Analyzes gene regulatory networks (GRNs) by inferring transcription factor (TF)-target gene co-expression relationships within cells. The pipeline consists of three steps: (1) GRN inference using GRNBoost2, (2) cis-regulatory motif enrichment analysis with RcisTarget, and (3) regulon activity scoring via AUCell. Additionally, it computes Regulon Specificity Scores (RSS) and generates corresponding heatmaps, along with visualizations of the inferred gene regulatory networks.</li>
+</ol>
+<p>1. Cellchat</p>
+<p>Here is an example about how to use the CDesk scRNA cellchat module.</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>CDesk scRNA interaction cellchat <span class="token punctuation">\</span>
+<span class="token parameter variable">-i</span> /<span class="token punctuation">..</span>./input.rds <span class="token punctuation">\</span>
+<span class="token parameter variable">-o</span> /<span class="token punctuation">..</span>./output_directory <span class="token punctuation">\</span>
+<span class="token parameter variable">--s</span> human <span class="token parameter variable">--group</span> meta
+</code></pre><table>
+<thead>
+<tr>
+<th>Parameters<sup>(*necessary)</sup></th>
+<th>Description</th>
+<th>Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-i,--input*</td>
+<td>Input Seurat object rds file</td>
+<td></td>
+</tr>
+<tr>
+<td>-o,--output*</td>
+<td>The output directory</td>
+<td></td>
+</tr>
+<tr>
+<td>-s,--species*</td>
+<td>Species (human or mouse)</td>
+<td></td>
+</tr>
+<tr>
+<td>--group*</td>
+<td>Meta column for grouping</td>
+<td></td>
+</tr>
+<tr>
+<td>-t,--thread</td>
+<td>Number of threads</td>
+<td>16</td>
+</tr>
+<tr>
+<td>--width</td>
+<td>Plot width</td>
+<td>8</td>
+</tr>
+<tr>
+<td>--height</td>
+<td>Plot height</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<p>If the pipeline runs successfully, it would generate:</p>
+<ul>
+<li>cellchat.rds: A RDS file containing the complete CellChat object, including all analysis results, which can be reloaded in future R sessions for further exploration.</li>
+<li>net_lr.csv: A CSV file listing ligand-receptor interactions between cell clusters, including ligands, receptors, and interaction strengths.</li>
+<li>net_pathway.csv: This file contains pathway-level interaction information inferred from ligand-receptor pairs.</li>
+<li>cell_net_circle.pdf: A circular plot visualizing the number and strength of interactions between cell clusters.</li>
+<li>TIL_net_number_individual.pdf: A plot showing the number of outgoing signals from each cell cluster when acting as a sender.</li>
+<li>TIL_net_strength_individual.pdf: A plot showing the signaling strength from each cell cluster to others when acting as a sender.</li>
+</ul>
+<div align="center">
+<img src="./images/scRNA_interaction_cellchat1.png" height="200"><img src="./images/scRNA_interaction_cellchat2.png" height="200"></div>
+<div align="center">
+<img src="./images/scRNA_interaction_cellchat3.png" height="500"></div>
+<center><i>CDesk scRNA interaction cellchat example result</i></center>
+<p>2. Pyscenic</p>
+<p>Here is an example about how to use the CDesk scRNA cellchat module.</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>CDesk scRNA interaction pyscenic <span class="token punctuation">\</span>
+<span class="token parameter variable">-i</span> /<span class="token punctuation">..</span>./input.data <span class="token punctuation">\</span>
+<span class="token parameter variable">-o</span> /<span class="token punctuation">..</span>./output_directory <span class="token punctuation">\</span>
+<span class="token parameter variable">--tf</span> /<span class="token punctuation">..</span>./tfs.txt <span class="token punctuation">\</span>
+<span class="token parameter variable">--db</span> /<span class="token punctuation">..</span>./db_dir <span class="token punctuation">\</span>
+<span class="token parameter variable">--species</span> hg38
+</code></pre><table>
+<thead>
+<tr>
+<th>Parameters<sup>(*necessary)</sup></th>
+<th>Description</th>
+<th>Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-i,--input*</td>
+<td>Input scRNA file, h5ad/csv/tsv format</td>
+<td></td>
+</tr>
+<tr>
+<td>-o,--output*</td>
+<td>The output directory</td>
+<td></td>
+</tr>
+<tr>
+<td>--tf*</td>
+<td>TF list file</td>
+<td></td>
+</tr>
+<tr>
+<td>--db*</td>
+<td>RcisTarget database directory</td>
+<td></td>
+</tr>
+<tr>
+<td>-s,--species*</td>
+<td>Species (human/mouse/hg*/mm*)</td>
+<td></td>
+</tr>
+<tr>
+<td>-t,--thread</td>
+<td>Number of threads</td>
+<td>16</td>
+</tr>
+<tr>
+<td>--auc</td>
+<td>AUC threshold</td>
+<td>0.05</td>
+</tr>
+<tr>
+<td>--nes</td>
+<td>Normalized Enrichment Score threshod</td>
+<td>3</td>
+</tr>
+<tr>
+<td>--normalize</td>
+<td>Normalize scRNA data or not (True/False)</td>
+<td>False</td>
+</tr>
+<tr>
+<td>--scale</td>
+<td>Scale scRNA data or not (True/False)</td>
+<td>False</td>
+</tr>
+<tr>
+<td>--log</td>
+<td>Log scRNA data or not (True/False)</td>
+<td>False</td>
+</tr>
+<tr>
+<td>--top_regulons</td>
+<td>Show top N regulons</td>
+<td>20</td>
+</tr>
+<tr>
+<td>--top_targets</td>
+<td>Show top N targets genes for each TF</td>
+<td>20</td>
+</tr>
+<tr>
+<td>--plot_tf</td>
+<td>Draw network for specific TF</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>If the pipeline runs successfully, it would generate:</p>
+<ul>
+<li>adjacencies.csv: The co-expression network results, listing regulatory relationships between transcription factors and target genes with associated weights.</li>
+<li>motifs.csv: Results from cis-regulatory motif enrichment analysis (RcisTarget), identifying significantly enriched motifs and their corresponding regulons.</li>
+<li>scenic_result.loom: A LOOM file containing AUCell scores (regulon activity per cell), suitable for downstream visualization or analysis.</li>
+<li>rss_scores.csv: Regulon Specificity Scores (RSS), indicating the specificity of each regulon across cell types.</li>
+<li>rss_heatmap.png: A heatmap of the top N most cell-type-specific regulons based on RSS.</li>
+<li>grn_network_top.png: A global gene regulatory network (GRN) plot showing the top N highest-weight interactions.</li>
+<li>grn_network_{tf}.png: Individual GRN plots for specific transcription factors (generated only if --plot_tf is specified).</li>
+<li>processed_data.loom (preprocessed data): intermediate files during analysis</li>
+</ul>
+<div align="center">
+<img src="./images/scRNA_interaction_pyscenic1.png" height="350"><img src="./images/scRNA_interaction_pyscenic2.png" height="350"></div>
+<center><i>CDesk scRNA interaction pyscenic example result</i></center>
+<details>
+<summary>
+What should the input file look like?</summary>
+<pre><blockcode>
+=== tfs.txt  ===
+BATF
+BCL6
+EGR1
+EGR2
+ETS1
+FOS
+FOXP3
+GATA1
+GATA3
+IRF1
+IRF4
+IRF8
+JUN
+JUNB
+JUND
+LEF1
+MYC
+NFATC1
+NFKB1
+NFKB2
+PAX5
+PRDM1
+RELA
+RUNX1
+RUNX3
+STAT1
+STAT3
+STAT4
+STAT5A
+=== db_dir  ===
+hg38_10kbp_up_10kbp_down_full_tx_v10_clust.genes_vs_motifs.rankings.feather
+mm10_10kbp_up_10kbp_down_full_tx_v10_clust.genes_vs_motifs.rankings.feather
+motifs-v10nr_clust-nr.hgnc-m0.001-o0.0.tbl
+motifs-v10nr_clust-nr.mgi-m0.001-o0.0.tbl
+motifs-v9-nr.hgnc-m0.001-o0.0.tbl
+motifs-v9-nr.hgnc-m0.001-o0.0.tbl.1
+motifs-v9-nr.mgi-m0.001-o0.0.tbl
+</blockcode>
+Genomic region database file (.feather)
+Transcription factor motif annotation file (.tbl)
+HGNC refers to human gene symbols; MGI refers to mouse gene symbols.
+</pre>
+</details>
+<h2 id="28-scrna-integrate">2.8 scRNA: integrate </h2>
+<p>The integrate module provides two strategies for single-cell data integration: Seurat-based integration and bulk + scRNA-seq integration.</p>
+<ol>
+<li>The Seurat integration mode supports three algorithms—merge, CCA (Canonical Correlation Analysis), and Harmony—to correct batch effects across multiple single-cell datasets, enabling seamless data integration and visualization.</li>
+<li>The bulk + scRNA-seq integration mode innovatively aligns bulk RNA-seq data with single-cell data in a shared gene space, allowing joint visualization in a reduced-dimensional space. This interactive visualization facilitates comparative analysis of the two data types, revealing their relationships and transcriptional similarities.</li>
+</ol>
+<p>1. seurat</p>
+<p>Here is an example about how to use the CDesk scRNA integrate seurate module.</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>CDesk scRNA integrate seurat <span class="token punctuation">\</span>
+<span class="token parameter variable">-i</span> /<span class="token punctuation">..</span>./input.csv <span class="token punctuation">\</span>
+<span class="token parameter variable">--mode</span> merge<span class="token punctuation">(</span>anchor/harmony<span class="token punctuation">)</span> <span class="token punctuation">\</span>
+<span class="token parameter variable">-o</span> /<span class="token punctuation">..</span>./output_directory
+</code></pre><table>
+<thead>
+<tr>
+<th>Parameters<sup>(*necessary)</sup></th>
+<th>Description</th>
+<th>Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-i,--input*</td>
+<td>Seurat data list file (multiple formats acceptable)</td>
+<td></td>
+</tr>
+<tr>
+<td>-o,--output*</td>
+<td>The output directory</td>
+<td></td>
+</tr>
+<tr>
+<td>--mode*</td>
+<td>Choose a integration method {merge,harmony,CCA}</td>
+<td></td>
+</tr>
+<tr>
+<td>--min_cells</td>
+<td>minimum cells threshold for data filtration preprocess</td>
+<td>3</td>
+</tr>
+<tr>
+<td>--min_features</td>
+<td>minimum feature threshold for data filtration preprocess</td>
+<td>200</td>
+</tr>
+<tr>
+<td>--nfeatures_used</td>
+<td>The number of variable features</td>
+<td>2000</td>
+</tr>
+<tr>
+<td>--integrate_features</td>
+<td>The number of features for integration</td>
+<td>2000</td>
+</tr>
+<tr>
+<td>--pc_num</td>
+<td>PCA dimensional reduction dimensions</td>
+<td>50</td>
+</tr>
+<tr>
+<td>--pc_reduce</td>
+<td>UMAP dimensional reduction dimensions</td>
+<td>30</td>
+</tr>
+<tr>
+<td>-max_iter_harmony</td>
+<td>Harmony maximal iteration</td>
+<td>20</td>
+</tr>
+<tr>
+<td>--k_anchor</td>
+<td>k.anchor for CCA integrate</td>
+<td>20</td>
+</tr>
+<tr>
+<td>--width</td>
+<td>Plot width</td>
+<td>10</td>
+</tr>
+<tr>
+<td>--height</td>
+<td>Plot height</td>
+<td>10</td>
+</tr>
+</tbody>
+</table>
+<p>If the pipeline runs successfully, there would be a merged Seurat object and a UMAP plot for batch effect assessment of the integrated data.</p>
+<div align="center">
+<img src="./images/scRNA_integrate_seurat1.png" height="300"><img src="./images/scRNA_integrate_seurat2.png" height="300"><img src="./images/scRNA_integrate_seurat3.png" height="300"></div>
+<div align="center">
+<center><i>CDesk scRNA integrate seurat example result (merge,harmony,CCA)</i></center></div><br>
+<details>
+<summary>
+What should the input file look like?</summary>
+<pre><blockcode>
+=== input.csv  ===
+file,group
+/mnt/linzejie/CDesk_test/data/2.scRNA/8.integrate/GSM5050521_G1counts.csv.gz,sample1
+/mnt/linzejie/CDesk_test/data/2.scRNA/8.integrate/GSM5050523_G2counts.csv.gz,sample2
+</blockcode>
+- Celltype: The celltypes to specify
+- Marker: The corresponding markers
+</pre>
+</details><br>
+<p>2. bulk</p>
+<p>Here is an example about how to use the CDesk scRNA integrate bulk module.</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>CDesk scRNA integrate bulk <span class="token punctuation">\</span>
+<span class="token parameter variable">--bulk</span> /<span class="token punctuation">..</span>./bulk_data_list.txt <span class="token punctuation">\</span>
+<span class="token parameter variable">--scRNA</span> /<span class="token punctuation">..</span>./scRNA_data_list.txt <span class="token punctuation">\</span>
+<span class="token parameter variable">--meta</span> /<span class="token punctuation">..</span>./meta.csv <span class="token punctuation">\</span>
+<span class="token parameter variable">-o</span> /<span class="token punctuation">..</span>./output_directory
+</code></pre><table>
+<thead>
+<tr>
+<th>Parameters<sup>(*necessary)</sup></th>
+<th>Description</th>
+<th>Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>--bulk*</td>
+<td>bulkRNA data list file</td>
+<td></td>
+</tr>
+<tr>
+<td>--scRNA*</td>
+<td>scRNA data list file</td>
+<td></td>
+</tr>
+<tr>
+<td>-m,--meta*</td>
+<td>The meta file</td>
+<td></td>
+</tr>
+<tr>
+<td>-o,--output*</td>
+<td>The output directory</td>
+<td></td>
+</tr>
+<tr>
+<td>--nfeatures_used</td>
+<td>The number of variable features</td>
+<td>2000</td>
+</tr>
+<tr>
+<td>--integrate_features</td>
+<td>The number of features for integration</td>
+<td>2000</td>
+</tr>
+<tr>
+<td>--pc_num</td>
+<td>PCA dimensional reduction dimensions</td>
+<td>50</td>
+</tr>
+<tr>
+<td>--pc_reduce</td>
+<td>UMAP dimensional reduction dimensions</td>
+<td>30</td>
+</tr>
+<tr>
+<td>--width</td>
+<td>Plot width</td>
+<td>10</td>
+</tr>
+<tr>
+<td>--height</td>
+<td>Plot height</td>
+<td>10</td>
+</tr>
+</tbody>
+</table>
+<p>If the pipeline runs successfully, there would be a merged Seurat object and and static as well as interactive visualization plots (including PCA, UMAP, and t-SNE) for integrated data.</p>
+<div align="center">
+<img src="./images/scRNA_integrate_bulk1.png" height="300"><img src="./images/scRNA_integrate_bulk2.png" height="300"><img src="./images/scRNA_integrate_bulk3.png" height="300"></div>
+<div align="center">
+<center><i>CDesk scRNA integrate bulk example result (PCA,UMAP,t-SNE)</i></center></div><br>
+<details>
+<summary>
+What should the input file look like?</summary>
+<pre><blockcode>
+=== bulk_data_list.txt ===
+/mnt/linzejie/CDesk_test/data/2.scRNA/8.integrate/data/GeneSymbol_counts.inhouse.txt
+/mnt/linzejie/CDesk_test/data/2.scRNA/8.integrate/data/GeneSymbol_counts.txt
+/mnt/linzejie/CDesk_test/data/2.scRNA/8.integrate/data/GeneSymbol_counts.a378_a388.txt
+=== scRNA_data_list.txt ===
+/mnt/linzejie/CDesk_test/data/2.scRNA/8.integrate/data/GeneSymbol_counts.a4_CRR271345_expmat.txt
+/mnt/linzejie/CDesk_test/data/2.scRNA/8.integrate/data/GeneSymbol_counts.a4_CRR271346_expmat.txt
+/mnt/linzejie/CDesk_test/data/2.scRNA/8.integrate/data/GeneSymbol_counts.a4_CRR271347_expmat.txt
+/mnt/linzejie/CDesk_test/data/2.scRNA/8.integrate/data/GeneSymbol_counts.a4_CRR271348_expmat.txt
+/mnt/linzejie/CDesk_test/data/2.scRNA/8.integrate/data/GeneSymbol_counts.a4_CRR271349_expmat.txt
+/mnt/linzejie/CDesk_test/data/2.scRNA/8.integrate/data/GeneSymbol_counts.a4_CRR271350_expmat.txt
+/mnt/linzejie/CDesk_test/data/2.scRNA/8.integrate/data/GeneSymbol_counts.a4_CRR271351_expmat.txt
+/mnt/linzejie/CDesk_test/data/2.scRNA/8.integrate/data/GeneSymbol_counts.a4_CRR271352_expmat.txt
+/mnt/linzejie/CDesk_test/data/2.scRNA/8.integrate/data/GeneSymbol_counts.a4_CRR271353_expmat.txt
+/mnt/linzejie/CDesk_test/data/2.scRNA/8.integrate/data/GeneSymbol_counts.a4_CRR271354_expmat.txt
+/mnt/linzejie/CDesk_test/data/2.scRNA/8.integrate/data/GeneSymbol_counts.a4_CRR271355_expmat.txt
+/mnt/linzejie/CDesk_test/data/2.scRNA/8.integrate/data/GeneSymbol_counts.a4_CRR271356_expmat.txt
+/mnt/linzejie/CDesk_test/data/2.scRNA/8.integrate/data/GeneSymbol_counts.a4_CRR271357_expmat.txt
+/mnt/linzejie/CDesk_test/data/2.scRNA/8.integrate/data/GeneSymbol_counts.a4_CRR271358_expmat.txt
+/mnt/linzejie/CDesk_test/data/2.scRNA/8.integrate/data/GeneSymbol_counts.a4_CRR271359_expmat.txt
+/mnt/linzejie/CDesk_test/data/2.scRNA/8.integrate/data/GeneSymbol_counts.a4_CRR271360_expmat.txt
+/mnt/linzejie/CDesk_test/data/2.scRNA/8.integrate/data/GeneSymbol_counts.a4_CRR271361_expmat.txt
+/mnt/linzejie/CDesk_test/data/2.scRNA/8.integrate/data/GeneSymbol_counts.a4_CRR271362_expmat.txt
+/mnt/linzejie/CDesk_test/data/2.scRNA/8.integrate/data/GeneSymbol_counts.a4_CRR271363_expmat.txt
+/mnt/linzejie/CDesk_test/data/2.scRNA/8.integrate/data/GeneSymbol_counts.a4_CRR271364_expmat.txt
+=== meta.csv ===
+sample,tag
+P1.AAACATCG,2C_E2
+P1.AACAACCA,zygote_E1
+P1.AACCGAGA,zygote_E1
+P1.AACGCTTA,zygote_E1
+P1.AACGTGAT,2C_E2
+......
+A379,LACIX5
+A380,LACIX10
+A381,LACIX10
+A382,LACIX5_N2B27
+A383,LACIX5_N2B27
+A384,LACIX10_N2B27
+A385,LACIX10_N2B27
+A386,LXP10
+A387,LXP10
+A388,LXP10
+</blockcode>
+- sample: The sample(column) name of bulk/scRNA data
+- tag: The tag name to specify
+</pre>
+</details><br>
+
+      </div>
+      <div class="md-sidebar-toc">
+<div class="md-toc">
+<div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#21-scrna-preprocess" class="md-toc-link">
+            <p>2.1 scRNA: Preprocess</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#22-scrna-cluster" class="md-toc-link">
+            <p>2.2 scRNA: cluster</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#23-scrna-annotation" class="md-toc-link">
+            <p>2.3 scRNA: annotation</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#24-scrna-marker" class="md-toc-link">
+            <p>2.4 scRNA: marker</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#25-scrna-trajectory" class="md-toc-link">
+            <p>2.5 scRNA: trajectory</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#26-scrna-similarity" class="md-toc-link">
+            <p>2.6 scRNA: similarity</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#27-scrna-interaction" class="md-toc-link">
+            <p>2.7 scRNA: interaction</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#28-scrna-integrate" class="md-toc-link">
+            <p>2.8 scRNA: integrate</p>
+
+          </a></div>
+</div>
+</div>
+      <a id="sidebar-toc-btn">≡</a>
+    
+    
+    
+    
+    
+    
+<script>
+document.body.setAttribute('html-show-sidebar-toc', true)
+var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
+sidebarTOCBtn.addEventListener('click', function(event) {
+  event.stopPropagation()
+  if (document.body.hasAttribute('html-show-sidebar-toc')) {
+    document.body.removeAttribute('html-show-sidebar-toc')
+  } else {
+    document.body.setAttribute('html-show-sidebar-toc', true)
+  }
+})
+</script>
+      
+  
+    </body></html>
