@@ -29,7 +29,7 @@
 <div align="center">
 <p><img src="./images/CDesk.png" alt=""></p>
 </div>
-<h2 id="0-installation-cdeskhtml"><a href="CDesk.html">0. Installation </a> </h2>
+<h2 id="-installation-cdeskhtml"><a href="CDesk.html"> Installation </a> </h2>
 <ol>
 <li>Donwload the scripts</li>
 </ol>
@@ -54,24 +54,24 @@ mamba env create -f CDesk_R.yml
 <pre><blockcode>
 {
   "software":{
-    "cellranger":"/home/sugon/Install/cellranger-7.1.0/cellranger",
+    "cellranger":"/mnt/linzejie/software/cellranger-10.0.0/bin/cellranger",
     "DrSeq":"/usr/local/bin/DrSeq",
     "dnbc4tools":"/mnt/linzejie/software/dnbc4tools2.1.3/dnbc4tools",
     "juicer_tools_jar":"/mnt/kuangjunqi/kuangjunqi/tools/hic/juicer_tools_1.22.01.jar",
-    "dipc":"/mnt/zhaochengchen/Work/OTHER/4.KJQ/2.HiC-Pro/4.hickit/dip-c",
+    "dipc":"/mnt2/zhaochengchen/Work/OTHER/4.KJQ/2.HiC-Pro/4.hickit/dip-c",
     "hickit":"/mnt/linzejie/software/hickit-0.1.1_x64-linux/hickit",
     "hickit_js":"/mnt/linzejie/software/hickit-0.1.1_x64-linux/hickit.js",
-    "celescope_conda":"/mnt/linzejie/miniconda3/envs/celescope"
+    "celescope_path":"/mnt3/linzejie/miniconda3/envs/celescope/bin"
   },
   "conda_env":{
-    "CDesk":"/mnt/linzejie/miniconda3/envs/CDesk",
-    "CDesk_R":"/mnt/linzejie/miniconda3/envs/CDesk_py3.7",
-    "CDesk_py3.7":"/mnt/linzejie/miniconda3/envs/CDesk_py3.7",
-    "CDesk_py2.7":"/mnt/linzejie/miniconda3/envs/CDesk_py2.7"
+    "CDesk":"/mnt3/linzejie/miniconda3/envs/CDesk",
+    "CDesk_R":"/mnt3/linzejie/miniconda3/envs/CDesk_R",
+    "CDesk_py3.7":"/mnt3/linzejie/miniconda3/envs/CDesk_py3.7",
+    "CDesk_py2.7":"/mnt3/linzejie/miniconda3/envs/CDesk_py2.7"
   }, 
   "data":{
     "mm10": {
-      "mapping_index": "/mnt/zhaochengchen/Data/mm10/mm10",
+      "hisat2_index": "/mnt/zhaochengchen/Data/mm10/mm10",
       "refseq_gtf": "/mnt/zhaochengchen/Data/mm10/mm10.ncbiRefSeq.WithUCSC.gtf",
       "refseq_bed": "/mnt/zhaochengchen/Data/mm10/mm10.refseq.bed",
       "chromInfo": "/mnt/zhaochengchen/Data/mm10/mm10.len",
@@ -88,7 +88,7 @@ mamba env create -f CDesk_R.yml
       "dnbc_mapindex":"/mnt/linzejie/data/dnbc4tools_data/mm10"
     },
     "rn7": {
-      "mapping_index": "/mnt/liudong/data/Genome/rn7/rn7",
+      "hisat2_index": "/mnt/liudong/data/Genome/rn7/rn7",
       "refseq_gtf": "/mnt/liudong/data/Genome/rn7/rn7.refGene.gtf",
       "refseq_bed": "/mnt/liudong/data/Genome/rn7/rn7.refGene.fix.bed",
       "chromInfo": "/mnt/liudong/data/Genome/rn7/rn7.len",
@@ -105,7 +105,7 @@ mamba env create -f CDesk_R.yml
       "dnbc_mapindex":"/mnt/linzejie/data/dnbc4tools_data/rn7"
     },
     "hg38": {
-      "mapping_index": "/mnt/zhaochengchen/Data/hg38/hg38",
+      "hisat2_index": "/mnt/zhaochengchen/Data/hg38/hg38",
       "refseq_gtf": "/mnt/zhaochengchen/Data/hg38/hg38.ncbiRefSeq.WithUCSC.gtf",
       "refseq_bed": "/mnt/zhaochengchen/Data/hg38/hg38.refseq.bed",
       "chromInfo": "/mnt/zhaochengchen/Data/hg38/hg38.len",
@@ -122,7 +122,7 @@ mamba env create -f CDesk_R.yml
       "dnbc_mapindex":"/mnt/linzejie/data/dnbc4tools_data/hg38"
     },
     "susScr11": {
-      "mapping_index": "/mnt/zhaochengchen/Data/susScr11/susScr11",
+      "hisat2_index": "/mnt/zhaochengchen/Data/susScr11/susScr11",
       "refseq_gtf": "/mnt/liudong/data/Genome/susScr11/susScr11.ncbiRefSeq.gtf",
       "refseq_bed": "/mnt/liudong/data/Genome/susScr11/susScr11.refseq.bed",
       "chromInfo": "/mnt/zhaochengchen/Data/susScr11/susScr11.chrom.sizes",
@@ -139,9 +139,9 @@ mamba env create -f CDesk_R.yml
       "dnbc_mapindex":"/mnt/linzejie/data/dnbc4tools_data/susScr11"
     },
     "galGal6": {
-      "mapping_index": "/mnt/zhaochengchen/Data/Gal6/galGal6",
+      "hisat2_index": "/mnt/zhaochengchen/Data/Gal6/galGal6",
       "refseq_gtf": "/mnt/zhaochengchen/Data/Gal6/galGal6.ncbiRefSeq.WithUCSC.gtf",
-      "refseq_bed": "/mnt/zhaochengchen/Data/Gal6/galGal6.refseq.bed",
+      "refseq_bed": "/mnt/zhaochengchen/Data/Gal6/Gal6.refseq.bed",
       "chromInfo": "/mnt/zhaochengchen/Data/Gal6/galGal6.chrom.sizes",
       "fasta": "/mnt/linzejie/data/fasta/galGal6.fa",
       "TE_idx": "/mnt/linzejie/data/galGal6.exclusive.idx",
@@ -163,6 +163,8 @@ mamba env create -f CDesk_R.yml
 - data: Saves the genome reference data of different species
 </pre>
 </details>
+<h2 id="0-tools-and-tips-toolshtml"><a href="Tools.html">0. Tools and tips </a> </h2>
+<p>  0.1 Tools: Data download</p>
 <h2 id="1-bulkrna-bulkrnahtml"><a href="BulkRNA.html">1. BulkRNA </a> </h2>
 <p>  1.1 bulkRNA: Preprocess<br>
   1.2 bulkRNA: Correlation<br>
@@ -217,8 +219,12 @@ mamba env create -f CDesk_R.yml
           </summary>
         <div>
           <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#0-installation-cdeskhtml" class="md-toc-link">
-            </a><p><a href="#0-installation-cdeskhtml" class="md-toc-link"></a><a href="CDesk.html">0. Installation </a></p>
+          <a href="#-installation-cdeskhtml" class="md-toc-link">
+            </a><p><a href="#-installation-cdeskhtml" class="md-toc-link"></a><a href="CDesk.html"> Installation </a></p>
+
+          </div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#0-tools-and-tips-toolshtml" class="md-toc-link">
+            </a><p><a href="#0-tools-and-tips-toolshtml" class="md-toc-link"></a><a href="Tools.html">0. Tools and tips </a></p>
 
           </div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
           <a href="#1-bulkrna-bulkrnahtml" class="md-toc-link">

@@ -60,15 +60,19 @@
           <a href="#28-scrna-integrate" class="md-toc-link">
             <p>2.8 scRNA: integrate</p>
 
-          </a></div>
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#cdesk-handbookcdeskhtml" class="md-toc-link">
+            </a><p><a href="#cdesk-handbookcdeskhtml" class="md-toc-link"></a><a href="CDesk.html">CDesk handbook</a></p>
+
+          </div>
 </div>
 <h2 id="21-scrna-preprocess">2.1 scRNA: Preprocess </h2>
 <p>CDesk preprocess module integrates preprocessing tools for single-cell RNA-seq data and supports four distinct analysis workflows: cellranger, drseq, singleron, and dnbc. Below is a brief overview of each:</p>
 <ol>
 <li>cellranger: The official 10x Genomics pipeline for single-cell RNA-seq analysis. This workflow checks the input CSV file for sample names and FASTQ file paths, creates symbolic links to the cellranger/input directory, and then runs cellranger count for each sample using the specified reference genome.</li>
-<li>drseq: Use the quality control and analysis software DrSeq for Drop-seq data. It takes two sequencing files as input: data_1.fastq (containing barcode information) and data_2.fastq (containing read sequences).</li>
 <li>singleron: Based on Singleron’s Celescope pipeline. This workflow links FASTQ files to the singleron/data directory, generates a sample mapping file (mapfile), and runs multi-sample analysis using the multi_rna command, followed by execution of the generated shell script.</li>
 <li>dnbc: A single-cell RNA-seq analysis pipeline developed by MGI for the DNBelab C4 platform, powered by dnbc4tools. It requires cDNA and oligo FASTQ files as input and performs data processing using the dnbc4tools rna run command with a user-specified genome index.</li>
+<li>drseq: Use the quality control and analysis software DrSeq for Drop-seq data. It takes two sequencing files as input: data_1.fastq (containing barcode information) and data_2.fastq (containing read sequences).</li>
 <li>smartseq: The preprocess pipeline is the same as bulkRNA preproces.</li>
 </ol>
 <p>1. cellranger</p>
@@ -266,7 +270,7 @@ PHCAR_Day8,/mnt3/linzejie/CDesk_test/data/2.scRNA/dnbc/huada/PHCAR_Day8_R1_001.f
 </tr>
 <tr>
 <td>--umi</td>
-<td>The barcode range</td>
+<td>The UMI code range</td>
 <td>13:20</td>
 </tr>
 </tbody>
@@ -325,27 +329,27 @@ pbmc,/mnt/linzejie/CDesk_test/data/2.scRNA/1.preprocess/10x/pbmctest_1.fastq,/mn
 </tr>
 <tr>
 <td>--min_cells</td>
-<td>minimum cells threshold for data filtration preprocess</td>
+<td>Genes filtration minimum cells threshold</td>
 <td>3</td>
 </tr>
 <tr>
 <td>--min_features</td>
-<td>minimum features threshold data filtration preprocess</td>
+<td>Cells filtration minimum features threshold</td>
 <td>200</td>
 </tr>
 <tr>
 <td>--nFeature_RNA_min</td>
-<td>clustering feature minimum</td>
+<td>cells feature minimum filter threshold</td>
 <td>200</td>
 </tr>
 <tr>
 <td>--nFeature_RNA_max</td>
-<td>clustering feature maximum</td>
+<td>cells feature maximum filter threshold</td>
 <td>2500</td>
 </tr>
 <tr>
 <td>--mt_percent</td>
-<td>clustering mitochondria percent threshold</td>
+<td>cells mitochondria percent filter threshold</td>
 <td>5</td>
 </tr>
 <tr>
@@ -1294,7 +1298,7 @@ HGNC refers to human gene symbols; MGI refers to mouse gene symbols.
 <p>Here is an example about how to use the CDesk scRNA integrate seurate module.</p>
 <pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>CDesk scRNA integrate seurat <span class="token punctuation">\</span>
 <span class="token parameter variable">-i</span> /<span class="token punctuation">..</span>./input.csv <span class="token punctuation">\</span>
-<span class="token parameter variable">--mode</span> merge<span class="token punctuation">(</span>anchor/harmony<span class="token punctuation">)</span> <span class="token punctuation">\</span>
+<span class="token parameter variable">--mode</span> merge<span class="token punctuation">(</span>CCA/harmony<span class="token punctuation">)</span> <span class="token punctuation">\</span>
 <span class="token parameter variable">-o</span> /<span class="token punctuation">..</span>./output_directory
 </code></pre><table>
 <thead>
@@ -1515,6 +1519,7 @@ A388,LXP10
 - tag: The tag name to specify
 </pre>
 </details><br>
+<h2 id="cdesk-handbookcdeskhtml"><a href="CDesk.html">CDesk handbook</a> </h2>
 
       </div>
       <div class="md-sidebar-toc">
@@ -1551,7 +1556,11 @@ A388,LXP10
           <a href="#28-scrna-integrate" class="md-toc-link">
             <p>2.8 scRNA: integrate</p>
 
-          </a></div>
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#cdesk-handbookcdeskhtml" class="md-toc-link">
+            </a><p><a href="#cdesk-handbookcdeskhtml" class="md-toc-link"></a><a href="CDesk.html">CDesk handbook</a></p>
+
+          </div>
 </div>
 </div>
       <a id="sidebar-toc-btn">≡</a>

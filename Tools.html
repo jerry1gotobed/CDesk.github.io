@@ -1,5 +1,5 @@
 <!DOCTYPE html><html><head>
-      <title>CDesk</title>
+      <title>Tools</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
@@ -24,226 +24,124 @@
     
       <div class="crossnote markdown-preview  ">
       
-<h1 id="cdesk-handbook" ingnore="true">CDesk handbook </h1>
-<p>CDesk is an integrated multi-omics analysis pipeline designed for processing data from various sequencing-based assays, including RNA-seq, scRNA-seq, ATAC-seq, CUT&amp;Tag, ChIP-seq, and Hi-C. It comprises multiple subcommands that cover a comprehensive range of analysis tasks, from raw sequencing data process to downstream various advanced functions. Dedicated conda environment YAML files are supplied. To install, simply create the Conda environment from thess files (some functions may require additional software) and prepare the necessary species-specific data. Once configured, users can perform the desired analyses by entering the corresponding command on the command line.</p>
-<div align="center">
-<p><img src="./images/CDesk.png" alt=""></p>
+<h1 id="cdesk-0-tools-and-tips">CDesk: 0. Tools and tips </h1>
+<p>CDesk also provides data download tools. This chapter shows how to use CDesk to download the data and some tips for you while using CDesk piepeline.<br>
+
+</p><div class="md-toc">
+<div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#data-download" class="md-toc-link">
+            <p>Data download</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#tips" class="md-toc-link">
+            <p>Tips</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#cdesk-handbookcdeskhtml" class="md-toc-link">
+            </a><p><a href="#cdesk-handbookcdeskhtml" class="md-toc-link"></a><a href="CDesk.html">CDesk handbook</a></p>
+
+          </div>
 </div>
-<h2 id="0-installation-cdeskhtml"><a href="CDesk.html">0. Installation </a> </h2>
-<ol>
-<li>Donwload the scripts</li>
-</ol>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>git clone https://github.com/jerry1gotobed/CDesk_develop.git
-</code></pre><ol start="2">
-<li>Prepare the Conda Environments</li>
-</ol>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>mamba env create -f CDesk.yml
-mamba env create -f CDesk_py3.7.yml
-mamba env create -f CDesk_py2.7.yml
-mamba env create -f CDesk_R.yml
-</code></pre><p>We provide Conda environments containing the required software, R, and Python dependencies used in the scripts (some tools may require additional manual installation). We recommend using mamba instead of conda for faster environment setup.</p>
-<p>Each time you run CDesk, it first checks for the presence of the required CDesk Conda or Mamba environments. You can also specify custom environment paths in the configuration file. If no Conda/Mamba environment is found, CDesk will fall back to your system's default environment. However, this may lead to compatibility issues if dependencies are missing or mismatched.</p>
-<ol start="3">
-<li>Prepare the Data and Write the Configuration File</li>
-</ol>
-<p>You need to prepare reference data for the species of interest and specify the corresponding file paths in the config.json configuration file. This file stores paths to genomic data, annotation files, and any additional software installations.</p>
-<p>An example configuration is provided below. You can customize it to support additional species or data types. Note that not all fields are required — the specific data and tools needed depend on the task you intend to run. CDesk will check for required resources and exit with an informative error message if any are missing.</p>
+<h2 id="data-download">Data download </h2>
+<p>CDesk tools download module enables high-speed, parallel downloading of SRR/ERR data using Aspera. Here is an example about how to use the CDesk tools download module to download SRR/ERR data.</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>CDesk tools download <span class="token punctuation">\</span>
+<span class="token parameter variable">-i</span> /<span class="token punctuation">..</span>./input.txt <span class="token parameter variable">-o</span> /<span class="token punctuation">..</span>./output_directory <span class="token punctuation">\</span>
+<span class="token parameter variable">--key</span> /<span class="token punctuation">..</span>./keyfile
+</code></pre><table>
+<thead>
+<tr>
+<th>Parameters<sup>(*necessary)</sup></th>
+<th>Description</th>
+<th>Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-i,--input*</td>
+<td>The input sample list file</td>
+<td></td>
+</tr>
+<tr>
+<td>-o,--output*</td>
+<td>The output directory</td>
+<td></td>
+</tr>
+<tr>
+<td>-k,--key</td>
+<td>The ASCP Key Path</td>
+<td></td>
+</tr>
+<tr>
+<td>-t,--thread</td>
+<td>The number of threads to use</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<p>If the pipeline runs successfully, there would be sample output folders saving the fastq.gz files.</p>
+<details>
+  <summary>A successful CDesk tools download running process</summary>
+  <pre><blockcode>
+Checking required tools...
+1 SRR/ERR samples in total
+📥 Downloading SRR35012809
+⏳ Waiting for all downloads to complete...
+SRR35012809_1.fastq.gz  100% 1618MB 93.8Mb/s    04:26    
+SRR35012809_2.fastq.gz  100% 1592MB 49.4Mb/s    10:45    
+Completed: 3287242K bytes transferred in 645 seconds
+ (41688K bits/sec), in 2 files, 1 directory.
+✅ All downloads completed!
+</blockcode></pre>
+</details>
 <details>
 <summary>
- An example of configuration file</summary>
+What should the input file look like?</summary>
 <pre><blockcode>
-{
-  "software":{
-    "cellranger":"/home/sugon/Install/cellranger-7.1.0/cellranger",
-    "DrSeq":"/usr/local/bin/DrSeq",
-    "dnbc4tools":"/mnt/linzejie/software/dnbc4tools2.1.3/dnbc4tools",
-    "juicer_tools_jar":"/mnt/kuangjunqi/kuangjunqi/tools/hic/juicer_tools_1.22.01.jar",
-    "dipc":"/mnt/zhaochengchen/Work/OTHER/4.KJQ/2.HiC-Pro/4.hickit/dip-c",
-    "hickit":"/mnt/linzejie/software/hickit-0.1.1_x64-linux/hickit",
-    "hickit_js":"/mnt/linzejie/software/hickit-0.1.1_x64-linux/hickit.js",
-    "celescope_conda":"/mnt/linzejie/miniconda3/envs/celescope"
-  },
-  "conda_env":{
-    "CDesk":"/mnt/linzejie/miniconda3/envs/CDesk",
-    "CDesk_R":"/mnt/linzejie/miniconda3/envs/CDesk_py3.7",
-    "CDesk_py3.7":"/mnt/linzejie/miniconda3/envs/CDesk_py3.7",
-    "CDesk_py2.7":"/mnt/linzejie/miniconda3/envs/CDesk_py2.7"
-  }, 
-  "data":{
-    "mm10": {
-      "mapping_index": "/mnt/zhaochengchen/Data/mm10/mm10",
-      "refseq_gtf": "/mnt/zhaochengchen/Data/mm10/mm10.ncbiRefSeq.WithUCSC.gtf",
-      "refseq_bed": "/mnt/zhaochengchen/Data/mm10/mm10.refseq.bed",
-      "chromInfo": "/mnt/zhaochengchen/Data/mm10/mm10.len",
-      "fasta": "/mnt/zhaochengchen/Data/mm10/mm10.fa",
-      "tf_file": "/mnt/zhaochengchen/Data/mm10/Mus_musculus_TF.txt",
-      "promoter_file": "/mnt/liudong/data/Genome/mm10/mm10.promoter.ncbiRefSeq.WithUCSC.bed",
-      "TE_idx": "/mnt/liudong/data/Genome/mm10/mm10.exclusive.idx",
-      "scRef10x": "/mnt/liudong/data/Genome/mm10Self",
-      "effective_genome_size": "mm",
-      "gff3":"/mnt/linzejie/data/mm10.gff3",
-      "refgenes":"/mnt/linzejie/data/Drseq_data/refgenes/mm10.refgenes.txt",
-      "bowtie2_mapindex":"/mnt/linzejie/data/Drseq_data/bowtie2/mm10/mm10",
-      "singleron_mapindex":"/mnt/linzejie/data/celescope_data/mm10",
-      "dnbc_mapindex":"/mnt/linzejie/data/dnbc4tools_data/mm10"
-    },
-    "rn7": {
-      "mapping_index": "/mnt/liudong/data/Genome/rn7/rn7",
-      "refseq_gtf": "/mnt/liudong/data/Genome/rn7/rn7.refGene.gtf",
-      "refseq_bed": "/mnt/liudong/data/Genome/rn7/rn7.refGene.fix.bed",
-      "chromInfo": "/mnt/liudong/data/Genome/rn7/rn7.len",
-      "fasta": "/mnt/linzejie/data/fasta/rn7.fa",
-      "tf_file": "/mnt/liudong/data/Genome/rn7/Rattus_norvegicus_TF.txt",
-      "promoter_file": "/mnt/liudong/data/Genome/rn7/rn7.refGene.promoter.bed",
-      "TE_idx": "/mnt/linzejie/data/rn7.exclusive.idx",
-      "scRef10x": "/mnt/linzejie/data/cellranger_data/rn7",
-      "effective_genome_size": "2.37e9",
-      "gff3":"/mnt/linzejie/data/rn7.gff3",
-      "refgenes":"/mnt/linzejie/data/Drseq_data/refgenes/rn7.refgenes.txt",
-      "bowtie2_mapindex":"/mnt/linzejie/data/Drseq_data/bowtie2/rn7/rn7",
-      "singleron_mapindex":"/mnt/linzejie/data/celescope_data/rn7",
-      "dnbc_mapindex":"/mnt/linzejie/data/dnbc4tools_data/rn7"
-    },
-    "hg38": {
-      "mapping_index": "/mnt/zhaochengchen/Data/hg38/hg38",
-      "refseq_gtf": "/mnt/zhaochengchen/Data/hg38/hg38.ncbiRefSeq.WithUCSC.gtf",
-      "refseq_bed": "/mnt/zhaochengchen/Data/hg38/hg38.refseq.bed",
-      "chromInfo": "/mnt/zhaochengchen/Data/hg38/hg38.len",
-      "fasta": "/mnt/zhaochengchen/Data/hg38/hg38.fa",
-      "tf_file": "/mnt/zhaochengchen/Data/hg38/Homo_sapiens_TF.txt",
-      "promoter_file": "/mnt/zhaochengchen/Data/hg38/hg38.Promoter.bed",
-      "TE_idx": "/mnt/liudong/data/Genome/hg38/hg38.exclusive.idx",
-      "scRef10x": "/mnt/linzejie/data/cellranger_data/hg38",
-      "effective_genome_size": "hs",
-      "gff3":"/mnt/linzejie/data/hg38.gff3",
-      "refgenes":"/mnt/linzejie/data/Drseq_data/refgenes/hg38.refgenes.txt",
-      "bowtie2_mapindex":"/mnt/linzejie/data/Drseq_data/bowtie2/hg38/hg38",
-      "singleron_mapindex":"/mnt/linzejie/data/celescope_data/hg38",
-      "dnbc_mapindex":"/mnt/linzejie/data/dnbc4tools_data/hg38"
-    },
-    "susScr11": {
-      "mapping_index": "/mnt/zhaochengchen/Data/susScr11/susScr11",
-      "refseq_gtf": "/mnt/liudong/data/Genome/susScr11/susScr11.ncbiRefSeq.gtf",
-      "refseq_bed": "/mnt/liudong/data/Genome/susScr11/susScr11.refseq.bed",
-      "chromInfo": "/mnt/zhaochengchen/Data/susScr11/susScr11.chrom.sizes",
-      "fasta": "/mnt/linzejie/data/fasta/susScr11.fa",
-      "tf_file": "/mnt/liudong/data/Genome/susScr11/Sus_scrofa_TF.txt",
-      "promoter_file": "/mnt/liudong/data/Genome/susScr11/susScr11.Promoter.bed",
-      "TE_idx": "/mnt/liudong/data/Genome/susScr11/susScr11.exclusive.idx",
-      "scRef10x": "/mnt/liudong/data/Genome/susScr11Self",
-      "effective_genome_size": "2.36e9",
-      "gff3":"/mnt/linzejie/data/susScr11.gff3",
-      "refgenes":"/mnt/linzejie/data/Drseq_data/refgenes/susScr11.refgenes.txt",
-      "bowtie2_mapindex":"/mnt/linzejie/data/Drseq_data/bowtie2/susScr11/susScr11",
-      "singleron_mapindex":"/mnt/linzejie/data/celescope_data/susScr11",
-      "dnbc_mapindex":"/mnt/linzejie/data/dnbc4tools_data/susScr11"
-    },
-    "galGal6": {
-      "mapping_index": "/mnt/zhaochengchen/Data/Gal6/galGal6",
-      "refseq_gtf": "/mnt/zhaochengchen/Data/Gal6/galGal6.ncbiRefSeq.WithUCSC.gtf",
-      "refseq_bed": "/mnt/zhaochengchen/Data/Gal6/galGal6.refseq.bed",
-      "chromInfo": "/mnt/zhaochengchen/Data/Gal6/galGal6.chrom.sizes",
-      "fasta": "/mnt/linzejie/data/fasta/galGal6.fa",
-      "TE_idx": "/mnt/linzejie/data/galGal6.exclusive.idx",
-      "scRef10x": "/mnt/linzejie/data/cellranger_data/galGal6",
-      "effective_genome_size": "1.0e9",
-      "tf_file": "/mnt/zhaochengchen/Data/Gal6/Gallus_gallus_TF.txt",
-      "promoter_file": "/mnt/linzejie/data/galGal6.Promoter.bed",
-      "gff3":"/mnt/linzejie/data/galGal6.gff3",
-      "refgenes":"/mnt/linzejie/data/Drseq_data/refgenes/galGal6.refgenes.txt",
-      "bowtie2_mapindex":"/mnt/linzejie/data/Drseq_data/bowtie2/galGal6/galGal6",
-      "singleron_mapindex":"/mnt/linzejie/data/celescope_data/galGal6",
-      "dnbc_mapindex":"/mnt/linzejie/data/dnbc4tools_data/galGal6"
-    }
-  }
-}
+SRR5489315
+SRR35012809
 </blockcode>
-- software: Saves the ptional software requiring manual installation
-- conda_env: The conda environments path
-- data: Saves the genome reference data of different species
+An input SRR/ERR file list 
 </pre>
 </details>
-<h2 id="1-bulkrna-bulkrnahtml"><a href="BulkRNA.html">1. BulkRNA </a> </h2>
-<p>  1.1 bulkRNA: Preprocess<br>
-  1.2 bulkRNA: Correlation<br>
-  1.3 bulkRNA: DEG<br>
-  1.4 bulkRNA: Enrich<br>
-  1.5 bulkRNA: Similarity<br>
-  1.6 bulkRNA: Clustering<br>
-  1.7 bulkRNA: Splice</p>
-<h2 id="2-scrna-scrnahtml"><a href="scRNA.html">2. scRNA </a> </h2>
-<p>  2.1 scRNA: Preprocess<br>
-  2.2 scRNA: Cluster<br>
-  2.3 scRNA: Annotation<br>
-  2.4 scRNA: Marker<br>
-  2.5 scRNA: Trajectory<br>
-  2.6 scRNA: Similarity<br>
-  2.7 scRNA: Interaction<br>
-  2.8 scRNA: Integrate</p>
-<h2 id="3-atac-atachtml"><a href="ATAC.html">3. ATAC </a> </h2>
-<p>  3.1 ATAC: Preprocess<br>
-  3.2 ATAC: QC<br>
-  3.3 ATAC: Dynamic<br>
-  3.4 ATAC: Motif<br>
-  3.5 ATAC: Accessbility<br>
-  3.6 ATAC: IGV<br>
-  3.7 ATAC: Correlation</p>
-<h2 id="4-chipseqcuttag-chipseqcuttaghtml"><a href="ChIPseq&amp;CUTTag.html">4. ChIPseq&amp;CUTTag </a> </h2>
-<p>  4.1 ATAC: Preprocess<br>
-  4.2 ATAC: QC<br>
-  4.3 ATAC: Pattern<br>
-  4.4 ATAC: Motif<br>
-  4.5 ATAC: Accessbility<br>
-  4.6 ATAC: IGV<br>
-  4.7 ATAC: Correlation</p>
-<h2 id="5-hic-hichtml"><a href="HiC.html">5. HiC </a> </h2>
-<p>  5.1 HiC: Preprocess<br>
-  5.2 HiC: Sample Correlation<br>
-  5.3 HiC: Matrix balancing and Format transformation<br>
-  5.4 HiC: TAD<br>
-  5.5 HiC: Compartment<br>
-  5.6 HiC: Loop<br>
-  5.7 HiC: 3D reconstruction<br>
-  5.8 HiC: Distance-contact<br>
-  5.9 HiC: Contact compare</p>
+<h2 id="tips">Tips </h2>
+<p>Here are some trouble you might encounter while using CDesk pipeline.</p>
+<h4 id="gfold-bug">GFold bug </h4>
+<p>Before you run CDesk bulk preprocess, you might need to check gfold software.</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code><span class="token function">which</span> gfold
+</code></pre><p>If it shows the following bug:</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>gfold: error while loading shared libraries: libgsl.so.0: cannot open shared object file: No such file or directory
+</code></pre><p>The issue occurs because GSL does not provide libgsl.so.0 by default — libgsl.so.0 and <a href="http://libgsl.so">libgsl.so</a> refer to the same file. Therefore, creating a hard link from <a href="http://libgsl.so">libgsl.so</a> to libgsl.so.0 could solve the problem.</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code><span class="token builtin class-name">cd</span> /<span class="token punctuation">..</span>./envs/CDesk/lib
+<span class="token function">ln</span> libgsl.so libgsl.so.0
+</code></pre><h4 id="scanpy-bug">scanpy bug </h4>
+<p>When you use CDesk scRNA cluster in scanpy mode, you might encounter the following bug:</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>ModuleNotFoundError: No module named 'importlib.metadata'
+</code></pre><p>The importlib.metadata module has been included in the Python standard library since Python 3.8, out environment is Python 3.7. You can modify the code to debug this error as follow.</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code><span class="token comment"># .../envs/CDesk_py3.7/lib/python3.7/site-packages/umap/__init__.py</span>
+from importlib.metadata <span class="token function">import</span> version, PackageNotFoundError
+              <span class="token operator">|</span>
+from importlib_metadata <span class="token function">import</span> version, PackageNotFoundError
+</code></pre><h4 id="flamingorlite-installation">FLAMINGOrLite installation </h4>
+<p>If you use CDesk HiC reconstruct flamingo, you need to install FLAMINGOrLite manually first because it could not be installed by conda.</p>
+<pre data-role="codeBlock" data-info="R" class="language-r R"><code>devtools<span class="token operator">::</span>install_github<span class="token punctuation">(</span><span class="token string">'JiaxinYangJX/FLAMINGOrLite'</span><span class="token punctuation">,</span>ref<span class="token operator">=</span><span class="token string">'HEAD'</span><span class="token punctuation">)</span>
+</code></pre><h2 id="cdesk-handbookcdeskhtml"><a href="CDesk.html">CDesk handbook</a> </h2>
 
       </div>
       <div class="md-sidebar-toc">
 <div class="md-toc">
-<details style="padding:0;;padding-left:0px;" open="">
-        <summary class="md-toc-link-wrapper">
-          <a href="#cdesk-handbook" class="md-toc-link"><p>CDesk handbook</p>
-</a>
-          </summary>
-        <div>
-          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#0-installation-cdeskhtml" class="md-toc-link">
-            </a><p><a href="#0-installation-cdeskhtml" class="md-toc-link"></a><a href="CDesk.html">0. Installation </a></p>
+<div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#data-download" class="md-toc-link">
+            <p>Data download</p>
 
-          </div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#1-bulkrna-bulkrnahtml" class="md-toc-link">
-            </a><p><a href="#1-bulkrna-bulkrnahtml" class="md-toc-link"></a><a href="BulkRNA.html">1. BulkRNA </a></p>
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#tips" class="md-toc-link">
+            <p>Tips</p>
 
-          </div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#2-scrna-scrnahtml" class="md-toc-link">
-            </a><p><a href="#2-scrna-scrnahtml" class="md-toc-link"></a><a href="scRNA.html">2. scRNA </a></p>
-
-          </div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#3-atac-atachtml" class="md-toc-link">
-            </a><p><a href="#3-atac-atachtml" class="md-toc-link"></a><a href="ATAC.html">3. ATAC </a></p>
-
-          </div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#4-chipseqcuttag-chipseqcuttaghtml" class="md-toc-link">
-            </a><p><a href="#4-chipseqcuttag-chipseqcuttaghtml" class="md-toc-link"></a><a href="ChIPseq&amp;CUTTag.html">4. ChIPseq&amp;CUTTag </a></p>
-
-          </div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
-          <a href="#5-hic-hichtml" class="md-toc-link">
-            </a><p><a href="#5-hic-hichtml" class="md-toc-link"></a><a href="HiC.html">5. HiC </a></p>
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#cdesk-handbookcdeskhtml" class="md-toc-link">
+            </a><p><a href="#cdesk-handbookcdeskhtml" class="md-toc-link"></a><a href="CDesk.html">CDesk handbook</a></p>
 
           </div>
-        </div>
-      </details>
-    
 </div>
 </div>
       <a id="sidebar-toc-btn">≡</a>
