@@ -29,8 +29,12 @@
 
 </p><div class="md-toc">
 <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
-          <a href="#data-download" class="md-toc-link">
-            <p>Data download</p>
+          <a href="#data-download-tools" class="md-toc-link">
+            <p>Data download tools</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#prepare-tools" class="md-toc-link">
+            <p>Prepare tools</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
           <a href="#tips" class="md-toc-link">
@@ -42,7 +46,7 @@
 
           </div>
 </div>
-<h2 id="data-download">Data download </h2>
+<h2 id="data-download-tools">Data download tools </h2>
 <p>CDesk tools download module enables high-speed, parallel downloading of SRR/ERR data using Aspera. Here is an example about how to use the CDesk tools download module to download SRR/ERR data.</p>
 <pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>CDesk tools download <span class="token punctuation">\</span>
 <span class="token parameter variable">-i</span> /<span class="token punctuation">..</span>./input.txt <span class="token parameter variable">-o</span> /<span class="token punctuation">..</span>./output_directory <span class="token punctuation">\</span>
@@ -103,6 +107,65 @@ SRR35012809
 An input SRR/ERR file list 
 </pre>
 </details>
+<h2 id="prepare-tools">Prepare tools </h2>
+<p>CDesk tools prepare module provides functionality to generate the input CSV file containing sequence data information for subsequent preprocessing analysis. Here is an example about how to use the CDesk tools prepare module.</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>CDesk tools prepare <span class="token punctuation">\</span>
+<span class="token parameter variable">-i</span> /<span class="token punctuation">..</span>./input_directory <span class="token parameter variable">-o</span> /<span class="token punctuation">..</span>./output_directory <span class="token punctuation">\</span> 
+<span class="token parameter variable">--pair</span> _R1.fq.gz,_R2.fq.gz <span class="token parameter variable">--single</span> _single.fq.gz
+</code></pre><table>
+<thead>
+<tr>
+<th>Parameters<sup>(*necessary)</sup></th>
+<th>Description</th>
+<th>Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-i,--input*</td>
+<td>The input directory</td>
+<td></td>
+</tr>
+<tr>
+<td>-o,--output*</td>
+<td>The output directory</td>
+<td></td>
+</tr>
+<tr>
+<td>--pair</td>
+<td>The ASCP Key Path</td>
+<td></td>
+</tr>
+<tr>
+<td>--single</td>
+<td>The number of threads to use</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>If the pipeline runs successfully, there would be a csv file recording the sequence data information in the output directory which could be used as the input csv for the following preprocess analysis.</p>
+<details>
+<summary>
+An example to use CDesk tools prepare</summary>
+<pre><blockcode>
+Files in the input directory:
+sample1_R1.fq.gz
+sample1_R2.fq.gz
+sample2_R1.fq.gz
+sample2_R2.fq.gz
+Sample_single.fq.gz
+</blockcode>
+command:
+CDesk tools prepare \
+-i /.../input_directory -o /.../output_directory \ 
+--pair _R1.fq.gz,_R2.fq.gz --single _single.fq.gz
+output csv:
+sample,fq1,fq2,ports
+Sample,/mnt/linzejie/CDesk_test/data/0.Tools/prepare/Sample_single.fq.gz,/mnt/linzejie/CDesk_test/data/0.Tools/prepare/Sample_single.fq.gz,1
+sample2,/mnt/linzejie/CDesk_test/data/0.Tools/prepare/sample2_R1.fq.gz,/mnt/linzejie/CDesk_test/data/0.Tools/prepare/sample2_R2.fq.gz,2
+sample1,/mnt/linzejie/CDesk_test/data/0.Tools/prepare/sample1_R1.fq.gz,/mnt/linzejie/CDesk_test/data/0.Tools/prepare/sample1_R2.fq.gz,2
+</pre>
+</details>
 <h2 id="tips">Tips </h2>
 <p>Here are some trouble you might encounter while using CDesk pipeline.</p>
 <h4 id="gfold-bug">GFold bug </h4>
@@ -130,8 +193,12 @@ from importlib_metadata <span class="token function">import</span> version, Pack
       <div class="md-sidebar-toc">
 <div class="md-toc">
 <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
-          <a href="#data-download" class="md-toc-link">
-            <p>Data download</p>
+          <a href="#data-download-tools" class="md-toc-link">
+            <p>Data download tools</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#prepare-tools" class="md-toc-link">
+            <p>Prepare tools</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
           <a href="#tips" class="md-toc-link">

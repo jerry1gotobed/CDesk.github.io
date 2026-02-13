@@ -33,8 +33,8 @@
             <p>3.1 ATAC: Preprocess</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
-          <a href="#32-atac-qc" class="md-toc-link">
-            <p>3.2 ATAC: QC</p>
+          <a href="#32-atac-correlation" class="md-toc-link">
+            <p>3.2 ATAC: Correlation</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
           <a href="#33-atac-dynamic" class="md-toc-link">
@@ -53,8 +53,8 @@
             <p>3.6 ATAC: IGV</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
-          <a href="#37-atac-correlation" class="md-toc-link">
-            <p>3.7 ATAC: Correlation</p>
+          <a href="#37-atac-similarity" class="md-toc-link">
+            <p>3.7 ATAC: Similarity</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
           <a href="#cdesk-handbookcdeskhtml" class="md-toc-link">
@@ -244,10 +244,10 @@ GSM7789743,ESC
 - group: The bam files of the same group would be merged
 </pre>
 </details>
-<h2 id="32-atac-qc">3.2 ATAC: QC </h2>
-<p>The CDesk ATAC QC module performs correlation analysis on ATAC-seq data across different samples to visualize sample relationships. The genome is binned by chromosome at a user-defined bin size. When a peak region file is provided, these regions are merged. Signal similarity across samples is calculated within these regions. PCA and correlation heatmaps are generated to help researchers interpret sample distribution and underlying structure in the data.</p>
-<p>Here is an example about how to use the CDesk ATAC QC module.</p>
-<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>CDesk ATAC QC <span class="token punctuation">\</span>
+<h2 id="32-atac-correlation">3.2 ATAC: Correlation </h2>
+<p>The CDesk ATAC correlation module performs correlation analysis on ATAC-seq data across different samples to visualize sample relationships. The genome is binned by chromosome at a user-defined bin size. When a peak region file is provided, these regions are merged. Signal similarity across samples is calculated within these regions. PCA and correlation heatmaps are generated to help researchers interpret sample distribution and underlying structure in the data.</p>
+<p>Here is an example about how to use the CDesk ATAC correlation module.</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>CDesk ATAC correlation <span class="token punctuation">\</span>
 <span class="token parameter variable">-i</span> /<span class="token punctuation">..</span>./input.csv <span class="token parameter variable">-o</span> /<span class="token punctuation">..</span>./output_directory <span class="token punctuation">\</span>
 <span class="token parameter variable">--bin</span> <span class="token number">100000</span> <span class="token parameter variable">-t</span> <span class="token number">100</span> <span class="token parameter variable">--species</span> mm10
 </code></pre><table>
@@ -305,11 +305,11 @@ GSM7789743,ESC
 <div align="center">
 <img src="./images/ATAC_QC_geneCor.png" width="330"><img src="./images/ATAC_QC_genePCA.png" width="330">
 </div>
-<center><i>CDesk ATAC QC binned genome example result</i></center>
+<center><i>CDesk ATAC correlation binned genome example result</i></center>
 <div align="center">
 <img src="./images/ATAC_QC_peakCor.png" width="330"><img src="./images/ATAC_QC_peakPCA.png" width="330">
 </div>
-<center><i>CDesk ATAC QC merged peaks example result</i></center>
+<center><i>CDesk ATAC correlation merged peaks example result</i></center>
 <details>
 <summary>
 What should the input file look like?</summary>
@@ -990,10 +990,10 @@ chr3:82500-84000
 </blockcode>
 </pre>
 </details>
-<h2 id="37-atac-correlation">3.7 ATAC: Correlation </h2>
-<p>The CDesk ATAC correlation module analyzes the similarity between 2 ATAC-seq samples by computing the genome-wide coverage correlation of two bigWig files using the multiBigwigSummary tool. It supports two modes: genome-wide binning or user-defined region-based analysis. The module calculates both Spearman and Pearson correlation coefficients, filters out regions with zero signal, and generates scatter plots for visual inspection of the correlations.</p>
-<p>Here is an example about how to use the CDesk ATAC correlation module.</p>
-<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>CDesk ATAC correlation <span class="token punctuation">\</span>
+<h2 id="37-atac-similarity">3.7 ATAC: Similarity </h2>
+<p>The CDesk ATAC similarity module analyzes the similarity between 2 ATAC-seq samples by computing the genome-wide coverage correlation of two bigWig files using the multiBigwigSummary tool. It supports two modes: genome-wide binning or user-defined region-based analysis. The module calculates both Spearman and Pearson correlation coefficients, filters out regions with zero signal, and generates scatter plots for visual inspection of the correlations.</p>
+<p>Here is an example about how to use the CDesk ATAC similarity module.</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>CDesk ATAC similarity <span class="token punctuation">\</span>
 <span class="token parameter variable">--bw1</span> /<span class="token punctuation">..</span>./sample1.bw <span class="token parameter variable">--bw2</span> /<span class="token punctuation">..</span>./sample2.bw <span class="token punctuation">\</span>
 <span class="token parameter variable">-o</span> /<span class="token punctuation">..</span>./output_directory <span class="token parameter variable">--region</span> /<span class="token punctuation">..</span>./region.bed
 </code></pre><table>
@@ -1036,7 +1036,7 @@ chr3:82500-84000
 <div align="center">
 <img src="./images/ATAC_correlation.png" height="350">
 </div>
-<center><i>CDesk ATAC correlation example result</i></center>
+<center><i>CDesk ATAC similarity example result</i></center>
 <br>
 <details>
 <summary>
@@ -1063,8 +1063,8 @@ chr3:82500-84000
             <p>3.1 ATAC: Preprocess</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
-          <a href="#32-atac-qc" class="md-toc-link">
-            <p>3.2 ATAC: QC</p>
+          <a href="#32-atac-correlation" class="md-toc-link">
+            <p>3.2 ATAC: Correlation</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
           <a href="#33-atac-dynamic" class="md-toc-link">
@@ -1083,8 +1083,8 @@ chr3:82500-84000
             <p>3.6 ATAC: IGV</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
-          <a href="#37-atac-correlation" class="md-toc-link">
-            <p>3.7 ATAC: Correlation</p>
+          <a href="#37-atac-similarity" class="md-toc-link">
+            <p>3.7 ATAC: Similarity</p>
 
           </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
           <a href="#cdesk-handbookcdeskhtml" class="md-toc-link">
