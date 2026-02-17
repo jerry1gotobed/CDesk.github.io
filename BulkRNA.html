@@ -963,7 +963,7 @@ CDesk bulkRNA cluster kmean <span class="token punctuation">\</span>
 </tr>
 <tr>
 <td>--gene</td>
-<td>Specify the gene list txt file</td>
+<td>The gene list txt file to do K-means clustering</td>
 <td></td>
 </tr>
 <tr>
@@ -980,8 +980,6 @@ CDesk bulkRNA cluster kmean <span class="token punctuation">\</span>
 </table>
 <p>If the pipeline runs successfully, for WGCNA analysis, it would output: gene members of each identified module, scatter plots showing the correlation between module eigengenes and trait profiles, heatmap of sample-to-sample similarity, dendrogram (hierarchical clustering tree) of genes, density plot of gene count distribution across samples, heatmap of module-trait associations and cluster plots visualizing gene expression patterns across modules. For kmean analysis, it would output: the list of genes assigned to the cluster, line plots and heatmaps showing the average expression profile of genes within each cluster and an elbow plot for evaluating the optimal number of clusters.</p>
 <div align="center">
-<img src="./images/bulkRNA_cluster_wgcna1
-.png" width="440"><img src="./images/bulkRNA_cluster_wgcna2.png" width="440">
 <img src="./images/bulkRNA_cluster_wgcna3
 .png" width="360"><img src="./images/bulkRNA_cluster_wgcna4.png" width="500">
 <img src="./images/bulkRNA_cluster_wgcna5
@@ -1259,12 +1257,7 @@ CDesk bulkRNA splice draw <span class="token punctuation">\</span>
 </tr>
 <tr>
 <td>--b1*</td>
-<td>The first txt file containing BAM file paths seprated by comma</td>
-<td></td>
-</tr>
-<tr>
-<td>--b2*</td>
-<td>The second txt file containing BAM file paths seprated by comma</td>
+<td>The first BAM files txt</td>
 <td></td>
 </tr>
 <tr>
@@ -1273,9 +1266,19 @@ CDesk bulkRNA splice draw <span class="token punctuation">\</span>
 <td></td>
 </tr>
 <tr>
-<td>--species*</td>
+<td>-s,--species*</td>
 <td>Specify the species</td>
 <td></td>
+</tr>
+<tr>
+<td>--b2</td>
+<td>The second BAM files txt</td>
+<td>No</td>
+</tr>
+<tr>
+<td>--type</td>
+<td>Type of read: paired/single</td>
+<td>paired</td>
 </tr>
 <tr>
 <td>-t,--thread</td>
@@ -1304,12 +1307,7 @@ CDesk bulkRNA splice draw <span class="token punctuation">\</span>
 </tr>
 <tr>
 <td>--b1*</td>
-<td>The first txt file containing BAM file paths seprated by comma</td>
-<td></td>
-</tr>
-<tr>
-<td>--b2*</td>
-<td>The second txt file containing BAM file paths seprated by comma</td>
+<td>The first BAM files txt</td>
 <td></td>
 </tr>
 <tr>
@@ -1318,19 +1316,34 @@ CDesk bulkRNA splice draw <span class="token punctuation">\</span>
 <td></td>
 </tr>
 <tr>
-<td>--species*</td>
-<td>Specify the species</td>
-<td></td>
-</tr>
-<tr>
 <td>--region*</td>
 <td>The genome region coordinates: format:{chromosome}:{strand}:{start}:{end}</td>
 <td></td>
 </tr>
 <tr>
-<td>--group*</td>
-<td>The path to a .gf file which groups the replicates</td>
+<td>-s,--species*</td>
+<td>Specify the species</td>
 <td></td>
+</tr>
+<tr>
+<td>--b2</td>
+<td>The second BAM files txt</td>
+<td>No</td>
+</tr>
+<tr>
+<td>--group</td>
+<td>The path to a .gf file which groups the replicates</td>
+<td>No</td>
+</tr>
+<tr>
+<td>--l1</td>
+<td>The first sample name</td>
+<td>No</td>
+</tr>
+<tr>
+<td>--l2</td>
+<td>The second sample name</td>
+<td>No</td>
 </tr>
 <tr>
 <td>--exon_s</td>
